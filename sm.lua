@@ -36,6 +36,7 @@
 ---| "BuilderGuide"
 ---| "Lift"
 ---| "ScriptableObject"
+---| "Uuid"
 
 
 
@@ -4562,7 +4563,7 @@ function sm.physics.multicast(casts) end
 ---If the ray cast is called from within a shape (e.g. a Sensor), a [Body] may be provided which the ray will not intersect.  
 ---@param startPos Vec3 The start position.
 ---@param endPos Vec3 The end position.
----@param ignoredObject? Body|Character|Shape|Harvestable The object to be ignored. (Optional)
+---@param ignoredObject? Body|Character|Shape|Harvestable|AreaTrigger The object to be ignored. (Optional)
 ---@param mask? integer The collision mask. Defaults to [sm.physics.filter, sm.physics.filter.default] (Optional)
 ---@return boolean,	RaycastResult
 function sm.physics.raycast(startPos, endPos, ignoredObject, mask) end
@@ -4697,7 +4698,7 @@ function sm.body.getAllBodies() end
 ---Returns a table of tables, which is an array of tables containing bodies grouped by creation.  
 ---A creation includes all bodies connected by [Joint, joints], etc.  
 ---@param bodies table The bodies to find all creation bodies from. {[Body], ...}
----@return table
+---@return Body[][]
 function sm.body.getCreationsFromBodies(bodies) end
 
 
@@ -7771,7 +7772,7 @@ function sm.visualization.setBlockVisualization(position, illegal) end
 
 ---*Client only*  
 ---Sets an array of bodies to visualize.  
----@param bodies table Array of bodies to visualize {[Body], ..}.
+---@param bodies Body[] Array of bodies to visualize {[Body], ..}.
 function sm.visualization.setCreationBodies(bodies) end
 
 ---*Client only*  
@@ -7895,12 +7896,68 @@ function sm.terrainData.save(data) end
 ---Reads .tile file data  
 sm.terrainTile = {}
 
+---@class TerrainCreation
+---@field pathOrJson string
+---@field pos Vec3
+---@field rot Quat
+---@field tags string[]
+
+---@class TerrainPrefab
+---@field name string
+---@field pos Vec3
+---@field rot Quat
+---@field scale Vec3
+---@field tags string[]
+---@field flags int
+
+---@class TerrainNode
+---@field pos Vec3
+---@field rot Quat,
+---@field scale Vec3
+---@field params table
+---@field tags string[]
+
+---@class TerrainAsset
+---@field uuid Uuid
+---@field pos Vec3
+---@field rot Quat
+---@field colors { string : Color }
+---@field tags string[]
+---@field slopeNormal? Vec3
+
+---@class TerrainDecal
+---@field pos Vec3
+---@field rot Quat
+---@field scale Vec3
+---@field decalId number
+---@field color Color
+---@field layer number
+---@field tags string[]
+
+---@class TerrainHarvestables
+---@field uuid Uuid
+---@field pos Vec3
+---@field rot Quat
+---@field color Color
+---@field params table
+---@field tags string[]
+---@field slopeNormal? Vec3
+
+---@class TerrainKinematics
+---@field uuid Uuid
+---@field pos Vec3
+---@field rot Quat
+---@field scale Vec3
+---@field color Color
+---@field params table
+---@field tags string[]
+
 ---Returns a table of all assets in a terrain cell.  
 ---@param tileId Uuid The tile id.
 ---@param tileOffsetX integer The tile offset X.
 ---@param tileOffsetY integer The tile offset Y.
 ---@param sizeLevel integer The size level of asset.
----@return table
+---@return TerrainAsset[] assets
 function sm.terrainTile.getAssetsForCell(tileId, tileOffsetX, tileOffsetY, sizeLevel) end
 
 ---Returns the clutter index at position (X,Y) in a tile.  
@@ -7909,7 +7966,7 @@ function sm.terrainTile.getAssetsForCell(tileId, tileOffsetX, tileOffsetY, sizeL
 ---@param tileOffsetY integer The tile offset Y.
 ---@param x integer The X.
 ---@param y integer The Y.
----@return number
+---@return number clutterId
 function sm.terrainTile.getClutterIdxAt(tileId, tileOffsetX, tileOffsetY, x, y) end
 
 ---Returns the terrain color at position (X,Y) in a tile.  
@@ -7919,20 +7976,20 @@ function sm.terrainTile.getClutterIdxAt(tileId, tileOffsetX, tileOffsetY, x, y) 
 ---@param lod integer The level of detail.
 ---@param x integer The X.
 ---@param y integer The Y.
----@return number
+---@return number red, number green, number blue
 function sm.terrainTile.getColorAt(tileId, tileOffsetX, tileOffsetY, lod, x, y) end
 
 ---Returns the content of prefab.  
 ---@param prefabPath string The path to the prefab file.
 ---@param loadFlags integer A mask of content to load
----@return table
+---@return TerrainCreation[] creations, TerrainPrefab[] prefabs, TerrainNode[] nodes, TerrainAsset[] assets, TerrainDecal[] decals, TerrainHarvestables[] harvestables, TerrainKinematics[] kinematics
 function sm.terrainTile.getContentFromPrefab(prefabPath, loadFlags) end
 
 ---Returns a table of all creations in a terrain cell.  
 ---@param tileId Uuid The tile id.
 ---@param tileOffsetX integer The tile offset X.
 ---@param tileOffsetY integer The tile offset Y.
----@return table
+---@return TerrainCreation[] creations
 function sm.terrainTile.getCreationsForCell(tileId, tileOffsetX, tileOffsetY) end
 
 ---Returns the id of the tiles creator.  
@@ -7944,7 +8001,7 @@ function sm.terrainTile.getCreatorId(path) end
 ---@param id Uuid The tile id
 ---@param x_offset integer The offset along the X axis
 ---@param y_offset integer The offset along the Y axis
----@return table
+---@return TerrainDecal[] decals
 function sm.terrainTile.getDecalsForCell(id, x_offset, y_offset) end
 
 ---Returns a table of all harvestables in a terrain cell.  
@@ -7952,7 +8009,7 @@ function sm.terrainTile.getDecalsForCell(id, x_offset, y_offset) end
 ---@param tileOffsetX integer The tile offset X.
 ---@param tileOffsetY integer The tile offset Y.
 ---@param sizeLevel integer The size level of harvestables.
----@return table
+---@return TerrainHarvestables[] harvestables
 function sm.terrainTile.getHarvestablesForCell(tileId, tileOffsetX, tileOffsetY, sizeLevel) end
 
 ---Returns the terrain height at position (X,Y) in a tile.  
@@ -7970,31 +8027,31 @@ function sm.terrainTile.getHeightAt(tileId, tileOffsetX, tileOffsetY, lod, x, y)
 ---@param tileOffsetX integer The tile offset X.
 ---@param tileOffsetY integer The tile offset Y.
 ---@param sizeLevel integer The size level of kinematics.
----@return table
+---@return TerrainKinematics[] kinematics
 function sm.terrainTile.getKinematicsForCell(tileId, tileOffsetX, tileOffsetY, sizeLevel) end
 
----Returns the terrain material at position (X,Y) in a tile.  
+---Returns the terrain material weights at position (X,Y) in a tile.  
 ---@param tileId Uuid The tile id.
 ---@param tileOffsetX integer The tile offset X.
 ---@param tileOffsetY integer The tile offset Y.
 ---@param lod integer The level of detail.
 ---@param x integer The X.
 ---@param y integer The Y.
----@return number
+---@return number material_1_weight, number material_2_weight, number material_3_weight, number material_4_weight, number material_5_weight, number material_6_weight, number material_7_weight, number material_8_weight
 function sm.terrainTile.getMaterialAt(tileId, tileOffsetX, tileOffsetY, lod, x, y) end
 
 ---Returns all nodes for a cell in a tile.  
 ---@param id Uuid The tile id
 ---@param x_offset integer The offset along the X axis
 ---@param y_offset integer The offset along the Y axis
----@return table
+---@return TerrainNode[] nodes
 function sm.terrainTile.getNodesForCell(id, x_offset, y_offset) end
 
 ---Returns all prefabs in a cell.  
 ---@param tileId Uuid The tile id.
 ---@param x_offset integer The offset along the X axis.
 ---@param y_offset integer The offset along the Y axis.
----@return table
+---@return TerrainPrefab[] prefabs
 function sm.terrainTile.getPrefabsForCell(tileId, x_offset, y_offset) end
 
 ---Returns the size of a tile as the number of cells along one of the axises.  
