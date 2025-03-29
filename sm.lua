@@ -6756,7 +6756,7 @@ sm.effect = {}
 ---Creates an effect.  
 ---If you provide a host object to the effect then it will fetch position, velocity and orientation data from the interactable instead of relying on this information being fed to it.  
 ---This results in far more accurate positioning of effects that are supposed to stay attached to an object.  
----@param name EffectName|string The name.
+---@param name string|EffectName The name.
 ---@param object? Interactable|Character|Harvestable The object the effect is attached to.
 ---@param name? string The bone name. (Defaults to not attached to a bone) (Optional)
 ---@return Effect
@@ -6764,13 +6764,13 @@ function sm.effect.createEffect(name, object, name) end
 
 ---*Client only*  
 ---Creates an 2d effect.  
----@param name EffectName|string The name of the effect.
+---@param name string|EffectName The name of the effect.
 ---@return Effect
 function sm.effect.createEffect2D(name) end
 
 ---*Client only*  
 ---Estimates the radius of influence for an effect and instance parameters  
----@param name EffectName|string The name of the effect.
+---@param name string|EffectName The name of the effect.
 ---@param parameters table Table of params
 ---@return number
 function sm.effect.estimateSize(name, parameters) end
@@ -6778,7 +6778,7 @@ function sm.effect.estimateSize(name, parameters) end
 ---Plays an effect. If this function is called on the server it will play the effect on all clients.  
 ---**Note:**
 ---*If you start a looping effect using this function you will not be able to stop it.<br>Please use [sm.effect.createEffect, createEffect] for looping effects.*
----@param name EffectName|string The name.
+---@param name string|EffectName The name.
 ---@param position Vec3 The position.
 ---@param velocity? Vec3 The velocity. (Defaults to no velocity)
 ---@param rotation? Quat The rotation. (Defaults to no rotation)
@@ -6790,7 +6790,7 @@ function sm.effect.playEffect(name, position, velocity, rotation, scale, paramet
 ---Plays an effect. It will fetch position, velocity and orientation data from the host interactable.  
 ---**Note:**
 ---*If you start a looping effect using this function you will not be able to stop it.<br>Please use [sm.effect.createEffect, createEffect] for looping effects*
----@param name EffectName|string The effect name.
+---@param name string|EffectName The effect name.
 ---@param object Interactable|Character|Harvestable The object the effect is attached to.
 ---@param boneName? string The bone name. (Optional)
 ---@param parameters? table The table containing the parameters for the effect. (Optional)
@@ -9457,3 +9457,145 @@ function ToolClass:client_onReload() end
 ---This event is called to check whether the [Tool] can be equipped.  
 ---@return boolean
 function ToolClass:client_canEquip() end
+
+
+---The <a target="_blank" href="https://bitop.luajit.org/index.html">BitOp library</a> that adds <a target="_blank" href="https://en.wikipedia.org/wiki/Bitwise_operation">bitwise operations</a> on numbers.
+bit = {}
+
+---Normalizes a number to the numeric range for bit operations and returns it.
+---This function is usually not needed since all bit operations already normalize all of their input arguments.     
+---```
+---print(0xffffffff)                --> 4294967295 (*)
+---print(bit.tobit(0xffffffff))     --> -1
+---printx(bit.tobit(0xffffffff))    --> 0xffffffff
+---print(bit.tobit(0xffffffff + 1)) --> 0
+---print(bit.tobit(2^40 + 1234))    --> 1234
+---```
+---@param x number
+---@return number y
+function bit.tobit(x) end
+
+---Converts its first argument to a hex string.
+---The number of hex digits is given by the absolute value of the optional second argument.
+---Positive numbers between 1 and 8 generate lowercase hex digits.
+---Negative numbers generate uppercase hex digits.
+---Only the least-significant 4*|n| bits are used. The default is to generate 8 lowercase hex digits.
+---```
+---print(bit.tohex(1))              --> 00000001
+---print(bit.tohex(-1))             --> ffffffff
+---print(bit.tohex(0xffffffff))     --> ffffffff
+---print(bit.tohex(-1, -8))         --> FFFFFFFF
+---print(bit.tohex(0x21, 4))        --> 0021
+---print(bit.tohex(0x87654321, 4))  --> 4321
+---```
+---@param x number
+---@param n? number
+---@return numbr y
+function bit.tohex(x, n) end
+
+---Returns the bitwise not of its argument.
+---```
+---print(bit.bnot(0))            --> -1
+---printx(bit.bnot(0))           --> 0xffffffff
+---print(bit.bnot(-1))           --> 0
+---print(bit.bnot(0xffffffff))   --> 0
+---printx(bit.bnot(0x12345678))  --> 0xedcba987
+---```
+---@param x number
+---@return number y
+function bit.bnot(x) end
+
+---Returns the bitwise and of all of its arguments. Note that more than two arguments are allowed. 
+---```
+---printx(bit.band(0x12345678, 0xff))        --> 0x00000078
+---```
+---@param ... number
+---@return number y
+function bit.band(...) end
+
+---Returns the bitwise or of all of its arguments. Note that more than two arguments are allowed. 
+---```
+---print(bit.bor(1, 2, 4, 8))                --> 15
+---```
+---@param ... number
+---@return number y
+function bit.bor(...) end
+
+---Returns the bitwise xor of all of its arguments. Note that more than two arguments are allowed. 
+---```
+---printx(bit.bxor(0xa5a5f0f0, 0xaa55ff00))  --> 0x0ff00ff0
+---```
+---@param ... unknown
+---@return number y
+function bit.bxor(...) end
+
+---Returns the bitwise logical left-shift of its first argument by the number of bits given by the second argument. 
+---Logical shifts treat the first argument as an unsigned number and shift in 0-bits. Arithmetic right-shift treats the most-significant bit as a sign bit and replicates it.
+---Only the lower 5 bits of the shift count are used (reduces to the range [0..31]). 
+---```
+---print(bit.lshift(1, 0))              --> 1
+---print(bit.lshift(1, 8))              --> 256
+---print(bit.lshift(1, 40))             --> 256
+---printx(bit.lshift(0x87654321, 12))   --> 0x54321000
+---```
+---@param x number
+---@param n number
+---@return number y
+function bit.lshift(x, n) end
+
+---Returns the bitwise logical right-shift of its first argument by the number of bits given by the second argument. 
+---Logical shifts treat the first argument as an unsigned number and shift in 0-bits. Arithmetic right-shift treats the most-significant bit as a sign bit and replicates it.
+---Only the lower 5 bits of the shift count are used (reduces to the range [0..31]). 
+---```
+---print(bit.rshift(256, 8))            --> 1
+---print(bit.rshift(-256, 8))           --> 16777215
+---printx(bit.rshift(0x87654321, 12))   --> 0x00087654
+---```
+---@param x number
+---@param n number
+---@return number y
+function bit.rshift(x, n) end
+
+---Returns the bitwise arithmetic right-shift of its first argument by the number of bits given by the second argument. 
+---Logical shifts treat the first argument as an unsigned number and shift in 0-bits. Arithmetic right-shift treats the most-significant bit as a sign bit and replicates it.
+---Only the lower 5 bits of the shift count are used (reduces to the range [0..31]). 
+---```
+---print(bit.arshift(256, 8))           --> 1
+---print(bit.arshift(-256, 8))          --> -1
+---printx(bit.arshift(0x87654321, 12))  --> 0xfff87654
+---```
+---@param x number
+---@param n number
+---@return number y
+function bit.arshift(x, n) end
+
+---Returns the bitwise left rotation of its first argument by the number of bits given by the second argument.
+---Bits shifted out on one side are shifted back in on the other side. 
+---Only the lower 5 bits of the rotate count are used (reduces to the range [0..31]). 
+---```
+---printx(bit.rol(0x12345678, 12))   --> 0x45678123
+---```
+---@param x number
+---@param n number
+---@return number y
+function bit.rol(x, n) end
+
+---Returns the bitwise right rotation of its first argument by the number of bits given by the second argument.
+---Bits shifted out on one side are shifted back in on the other side. 
+---Only the lower 5 bits of the rotate count are used (reduces to the range [0..31]). 
+---```
+---printx(bit.ror(0x12345678, 12))   --> 0x67812345
+---```
+---@param x number
+---@param n number
+---@return number y
+function bit.ror(x, n) end
+
+---Swaps the bytes of its argument and returns it. This can be used to convert little-endian 32 bit numbers to big-endian 32 bit numbers or vice versa.
+---```
+---printx(bit.bswap(0x12345678)) --> 0x78563412
+---printx(bit.bswap(0x78563412)) --> 0x12345678
+---```
+---@param x number
+---@return number y
+function bit.bswap(x) end
