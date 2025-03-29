@@ -1700,7 +1700,7 @@ function Network:sendToServer(callbackMethod, args) end
 ---end
 ---```
 ---@param data any Persistent data to be synchronized with existing and new clients.
----@param channel? integer Client data channel, 1 or 2 (Optional)
+---@param channel? 1|2 Client data channel (Optional)
 function Network:setClientData(data, channel) end
 
 
@@ -8205,7 +8205,7 @@ function CharacterClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [CharacterClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function CharacterClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when the [Character] is hit by a projectile.  
@@ -8351,7 +8351,7 @@ function GameClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [GameClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function GameClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when a [Player] joins the game.  
@@ -8457,7 +8457,7 @@ function HarvestableClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [HarvestableClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function HarvestableClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when the [Harvestable] is unloaded from the game because no [Player]'s [Character] is close enough to it. Also called when exiting the game.  
@@ -8628,7 +8628,7 @@ function PlayerClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [PlayerClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function PlayerClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when the player presses or releases the 'Use' key (default 'E').  
@@ -8767,7 +8767,7 @@ function ScriptableObjectClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [ScriptableObjectClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function ScriptableObjectClass:client_onClientDataUpdate(data, channel) end
 
 
@@ -8864,7 +8864,7 @@ function ShapeClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [ShapeClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function ShapeClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when the [Interactable] is unloaded from the game because no [Player]'s [Character] is close enough to it. Also called when exiting the game.  
@@ -9136,7 +9136,7 @@ function UnitClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [UnitClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function UnitClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when the [Unit]'s [Character] is hit by a projectile.  
@@ -9319,7 +9319,7 @@ function WorldClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [WorldClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function WorldClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when a world cell is loaded and feature complete for the first time.  
@@ -9472,7 +9472,7 @@ function ToolClass:client_onUpdate(deltaTime) end
 ---The data will arrive after [ToolClass.client_onCreate, client_onCreate] during the same tick.  
 ---Channel 1 will be received before channel 2 if both are updated.  
 ---@param data any Any lua object set with [Network.setClientData]
----@param channel integer Client data channel, 1 or 2. (default: 1)
+---@param channel 1|2 Client data channel. (default: 1)
 function ToolClass:client_onClientDataUpdate(data, channel) end
 
 ---Called when a [Player] equips the [Tool].  
