@@ -4524,7 +4524,7 @@ function sm.physics.distanceRaycast(start, direction) end
 ---@param destructionRadius number The destruction radius. Objects inside this sphere may be destroyed.
 ---@param impulseRadius number The impulse radius. Objects inside this sphere are affected by an [sm.physics.applyImpulse, impulse].
 ---@param magnitude number The impulse strength of the explosion. The strength diminishes with distance.
----@param effectName? string The name of the effect to be played upon explosion. (Optional)
+---@param effectName? string|EffectName The name of the effect to be played upon explosion. (Optional)
 ---@param ignoreShape? Shape The shape to be ignored. (Optional)
 ---@param parameters? table The table containing the parameters for the effect. (Optional)
 function sm.physics.explode(position, level, destructionRadius, impulseRadius, magnitude, effectName, ignoreShape, parameters) end
@@ -4596,7 +4596,7 @@ function sm.physics.sphereContactCount(worldPosition, radius, includeTerrain, co
 ---@param startPos Vec3 The start position.
 ---@param endPos Vec3 The end position.
 ---@param radius number The radius of the sphere.
----@param object? Body|Character|Shape|Harvestable The object to be ignored. (Optional)
+---@param object? Body|Character|Shape|Harvestable|AreaTrigger The object to be ignored. (Optional)
 ---@param mask? integer The collision mask. Defaults to [sm.physics.filter, sm.physics.filter.default] (Optional)
 ---@return boolean,	RaycastResult
 function sm.physics.spherecast(startPos, endPos, radius, object, mask) end
@@ -7169,7 +7169,7 @@ sm.audio.soundList = {}
 ---Plays a sound.  
 ---If position is specified, the sound will play at the given coordinates in the world. Otherwise, the sound will play normally.  
 ---For a list of available sounds to play, see [sm.audio.soundList].  
----@param sound AudioName|string The sound to play.
+---@param sound string|AudioName The sound to play.
 ---@param position? Vec3 The world position of the sound. (Optional)
 function sm.audio.play(sound, position) end
 
@@ -7976,21 +7976,21 @@ sm.terrainTile = {}
 ---@field pos Vec3
 ---@field rot Quat
 ---@field scale Vec3
----@field decalId number
+---@field decalId Uuid
 ---@field color Color
 ---@field layer number
 ---@field tags string[]
 
----@class TerrainHarvestables
+---@class TerrainHarvestable
 ---@field uuid Uuid
 ---@field pos Vec3
 ---@field rot Quat
 ---@field color Color
----@field params table
+---@field params? table
 ---@field tags string[]
 ---@field slopeNormal? Vec3
 
----@class TerrainKinematics
+---@class TerrainKinematic
 ---@field uuid Uuid
 ---@field pos Vec3
 ---@field rot Quat
@@ -8029,7 +8029,7 @@ function sm.terrainTile.getColorAt(tileId, tileOffsetX, tileOffsetY, lod, x, y) 
 ---Returns the content of prefab.  
 ---@param prefabPath string The path to the prefab file.
 ---@param loadFlags integer A mask of content to load
----@return TerrainCreation[] creations, TerrainPrefab[] prefabs, TerrainNode[] nodes, TerrainAsset[] assets, TerrainDecal[] decals, TerrainHarvestables[] harvestables, TerrainKinematics[] kinematics
+---@return TerrainCreation[] creations, TerrainPrefab[] prefabs, TerrainNode[] nodes, TerrainAsset[] assets, TerrainDecal[] decals, TerrainHarvestable[] harvestables, TerrainKinematic[] kinematics
 function sm.terrainTile.getContentFromPrefab(prefabPath, loadFlags) end
 
 ---Returns a table of all creations in a terrain cell.  
@@ -8056,7 +8056,7 @@ function sm.terrainTile.getDecalsForCell(id, x_offset, y_offset) end
 ---@param tileOffsetX integer The tile offset X.
 ---@param tileOffsetY integer The tile offset Y.
 ---@param sizeLevel integer The size level of harvestables.
----@return TerrainHarvestables[] harvestables
+---@return TerrainHarvestable[] harvestables
 function sm.terrainTile.getHarvestablesForCell(tileId, tileOffsetX, tileOffsetY, sizeLevel) end
 
 ---Returns the terrain height at position (X,Y) in a tile.  
@@ -8074,7 +8074,7 @@ function sm.terrainTile.getHeightAt(tileId, tileOffsetX, tileOffsetY, lod, x, y)
 ---@param tileOffsetX integer The tile offset X.
 ---@param tileOffsetY integer The tile offset Y.
 ---@param sizeLevel integer The size level of kinematics.
----@return TerrainKinematics[] kinematics
+---@return TerrainKinematic[] kinematics
 function sm.terrainTile.getKinematicsForCell(tileId, tileOffsetX, tileOffsetY, sizeLevel) end
 
 ---Returns the terrain material weights at position (X,Y) in a tile.  
@@ -9646,3 +9646,130 @@ function bit.ror(x, n) end
 ---@param x number
 ---@return number y
 function bit.bswap(x) end
+
+
+
+---Called on every thread before everything else.
+---@param world World The World object that the terrain script is attached to.
+---@param generatorIndex number The thread id of this instance.
+function Init(world, generatorIndex) end
+
+---Called on every thread after Init.  
+---Return **true** if loading any saved terrain data was successful, return **false** if it wasn't.
+---If **false** is returned, the **Create** function will be called.  
+---@return boolean success Whether loading terrain data was successful.
+function Load() end
+
+---Called after Load.  
+---Only gets called if the **Load** function returns false.  
+---@param xMin number The minimum x size of the world.
+---@param xMax number The maximum x size of the world.
+---@param yMin number The minimum y size of the world.
+---@param yMax number The maximum y size of the world.
+---@param seed number The seed to be used for random number generation.
+---@param data any Some data that the world might provide, for example, the path to a world file.
+function Create( xMin, xMax, yMin, yMax, seed, data ) end
+
+---Called before any of the **Get<parameter>At** and **Get<objects>ForCell** functions are called.  
+---Generally used to set up data that will be used for those functions later.  
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@param loadFlags number A mask that determines what to load, seems to only be usable for sm.terrainTile.getContentFromPrefab.
+function PrepareCell( cellX, cellY, loadFlags ) end
+
+---Should return the path of the tile with the given uuid.  
+---The game automatically calls this to get the path of tiles.  
+---@param uuid Uuid The UUID of the tile.
+---@return string path The path to the tile.
+function GetTilePath( uuid ) end
+
+---Determines what the terrain surface height is at a given **x** and **y** coordinate.
+---@param x number The x coordinate.
+---@param y number The y coordinate.
+---@param lod number The Level of Detail value. The higher it is, the less fidelity the terrain height is going to have.
+---@return number height The height of the terrain.
+function GetHeightAt( x, y, lod ) end
+
+---Determines the ground color.
+---@param x number The x coordinate.
+---@param y number The y coordinate.
+---@param lod number The Level of Detail value. The higher it is, the less fidelity the terrain colour is going to have.
+---@return number r The red value of the colour.
+---@return number g The green value of the colour.
+---@return number b The blue value of the colour.
+function GetColorAt( x, y, lod ) end
+
+---Determines what material the ground has.
+---Each returned number determines the weight of that specific ground material.
+---The ground material set can be set on the world class.
+---@param x number The x coordinate.
+---@param y number The y coordinate.
+---@param lod number The Level of Detail value. The higher it is, the less fidelity the terrain material is going to have.
+---@return number material_1_weight The weight of the first material.
+---@return number material_2_weight The weight of the second material.
+---@return number material_3_weight The weight of the third material.
+---@return number material_4_weight The weight of the fourth material.
+---@return number material_5_weight The weight of the fifth material.
+---@return number material_6_weight The weight of the sixth material.
+---@return number material_7_weight The weight of the seventh material.
+---@return number material_8_weight The weight of the eighth material.
+function GetMaterialAt( x, y, lod ) end
+
+---Determines what clutter to place in the tile. 
+---The clutter set can be set on the world class.
+---@param x number The x coordinate.
+---@param y number The y coordinate.
+---@return number clutterId The id of the clutter.
+function GetClutterIdxAt( x, y ) end
+
+---Determines what assets to place in the cell.
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@param lod number The Level of Detail value. The higher it is, the less fidelity the terrain assets are going to have.
+---@return TerrainAsset[] terrainAssets The terrain assets for the cell.
+function GetAssetsForCell( cellX, cellY, lod ) end
+
+---Determines what nodes to place in the cell.
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@return TerrainNode[] nodes The nodes for the cell.
+function GetNodesForCell( cellX, cellY ) end
+
+---Determines what creations to place in the cell.
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@return TerrainCreation[] creations The creations for the cell.
+function GetCreationsForCell( cellX, cellY ) end
+
+---Determines what harvestables to place in the cell.
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@param lod number The Level of Detail value. The higher it is, the less fidelity the harvestables are going to have.
+---@return TerrainHarvestable[] harvestables The harvestables for the cell.
+function GetHarvestablesForCell( cellX, cellY, lod ) end
+
+---Determines what kinematics to place in the cell.
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@param lod number The Level of Detail value. The higher it is, the less fidelity the kinematics are going to have.
+---@return TerrainKinematic[] kinematics The kinematics for the cell.
+function GetKinematicsForCell( cellX, cellY, lod ) end
+
+---Determines what assets to place in the cell.
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@param lod number The Level of Detail value. The higher it is, the less fidelity the decals are going to have.
+---@return TerrainDecal[] decals The decals for the cell.
+function GetDecalsForCell( cellX, cellY, lod ) end
+
+---Determines what tags the cell will have.
+---@param cellX number The x coordinate of the cell.
+---@param cellY number The y coordinate of the cell.
+---@return string[] tags The tags.
+function GetTagsForCell(cellX, cellY) end
+
+---Determines what hit effect should be played at this position.
+---@param x number The x coordinate.
+---@param y number The y coordinate.
+---@return string material The name of the material.
+function GetEffectMaterialAt( x, y ) end
