@@ -1349,7 +1349,7 @@ function Interactable:setPublicData(data) end
 function Interactable:setSeatCharacter(character) end
 
 ---Set the steering flag for a steering interactable.  
----@param steering flags The steering flags.
+---@param steering integer The steering flags.
 function Interactable:setSteeringFlag(steering) end
 
 ---*Client only*  
@@ -1404,7 +1404,7 @@ function Interactable:setSubMeshVisible(name, visible) end
 function Interactable:setUvFrameIndex(index) end
 
 ---Unset the steering flag for a steering interactable.  
----@param steering flags The steering flags.
+---@param steering integer The steering flags.
 function Interactable:unsetSteeringFlag(steering) end
 
 
@@ -6758,9 +6758,9 @@ sm.effect = {}
 ---This results in far more accurate positioning of effects that are supposed to stay attached to an object.  
 ---@param name string|EffectName The name.
 ---@param object? Interactable|Character|Harvestable The object the effect is attached to.
----@param name? string The bone name. (Defaults to not attached to a bone) (Optional)
+---@param boneName? string The bone name. (Defaults to not attached to a bone) (Optional)
 ---@return Effect
-function sm.effect.createEffect(name, object, name) end
+function sm.effect.createEffect(name, object, boneName) end
 
 ---*Client only*  
 ---Creates an 2d effect.  
@@ -6962,13 +6962,16 @@ sm.pathfinder.conditionProperty = {
     none = 2
 }
 
+---@class NodePathElement
+---@field toNode PathNode
+
 ---*Server only*  
 ---Find a path  
 ---@param character Character The character to find path for
 ---@param destination Vec3 The path destination
 ---@param groundPos? boolean If the destination is ground level
 ---@param linkConditions? table Table of link conditions
----@return table
+---@return NodePathElement[]
 function sm.pathfinder.getPath(character, destination, groundPos, linkConditions) end
 
 ---*Server only*  
