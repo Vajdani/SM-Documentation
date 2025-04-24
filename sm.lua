@@ -1071,7 +1071,7 @@ Interactable.shape = {}
 
 ---**Get**:
 ---Returns the interactable type of an interactable.  
----@type string
+---@type InteractableType
 Interactable.type = {}
 
 ---*Server only*  
@@ -1474,7 +1474,7 @@ Joint.shapeB = {}
 
 ---**Get**:
 ---Returns the joint type of a joint.  
----@type string
+---@type JointType
 Joint.type = {}
 
 ---**Get**:
@@ -4768,6 +4768,38 @@ sm.interactable.steering = {
     backward = 8
 }
 
+---@alias InteractableType string
+---| "electricEngine"
+---| "gasEngine"
+---| "steering"
+---| "seat"
+---| "controller"
+---| "button"
+---| "lever"
+---| "sensor"
+---| "thruster"
+---| "radio"
+---| "horn"
+---| "tone"
+---| "logic"
+---| "timer"
+---| "particlePreview"
+---| "spring"
+---| "pointLight"
+---| "spotLight"
+---| "chest"
+---| "itemStack"
+---| "scripted"
+---| "piston"
+---| "simpleInteractive"
+---| "camera"
+---| "waypoint"
+---| "survivalThruster"
+---| "survivalPiston"
+---| "survivalSpring"
+---| "survivalSequence"
+---| "survivalSensor"
+
 sm.interactable.types = {
     "electricEngine",
     "gasEngine",
@@ -4806,6 +4838,10 @@ sm.interactable.types = {
 --- - The <strong>bearing</strong> allows two bodies to revolve freely around each other. (See [Interactable.getBearings])
 --- - The <strong>piston</strong> extends and contracts to change the distance between two bodies. (See [Interactable.getPistons])
 sm.joint = {}
+
+---@alias JointType string
+---| "bearing"
+---| "piston"
 
 ---"bearing"A bearing part.  
 ---"piston"A piston part.  
