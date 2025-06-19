@@ -5911,7 +5911,8 @@ function sm.challenge.resolveContentPath(path) end
 
 ---*Server only*  
 ---Starts challenge.  
-function sm.challenge.start() end
+---@param world World
+function sm.challenge.start(world) end
 
 ---*Server only*  
 ---Stops challenge.  
@@ -5926,7 +5927,7 @@ function sm.challenge.takePicture(width, height, rotation) end
 
 ---*Server only*  
 ---Takes pictures of the challenge level to use as icon and preview.  
----@param rotation integer Rotation step.
+---@param rotation integer? Rotation step.
 function sm.challenge.takePicturesForMenu(rotation) end
 
 
@@ -5939,8 +5940,9 @@ sm.menuCreation = {}
 function sm.menuCreation.load() end
 
 ---*Server only*  
----Saves the users menu creation blueprint.  
-function sm.menuCreation.save() end
+---Saves the users menu creation blueprint.
+---@param blueprints table
+function sm.menuCreation.save(blueprints) end
 
 
 ---A <strong>portal</strong> moves objects inside a box to another box in another place.  
