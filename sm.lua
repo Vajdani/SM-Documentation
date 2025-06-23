@@ -5485,7 +5485,7 @@ sm.areaTrigger = {}
 ---dynamicBody  
 ---staticBody  
 ---character  
----areatrigger  
+---areaTrigger  
 ---harvestable  
 ---lif  
 ---voxelTerrain
@@ -5494,7 +5494,7 @@ sm.areaTrigger.filter = {
     dynamicBody = 1,
     staticBody = 2,
     character = 4,
-    areatrigger = 8,
+    areaTrigger = 8,
     harvestable = 512,
     lift = 1024,
     voxelTerrain = 32768,
