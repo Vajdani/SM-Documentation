@@ -3787,7 +3787,7 @@ function GuiInterface:setContainers(gridName, containers) end
 ---*Client only*  
 ---Sets data to a widget  
 ---@param widgetName string The name of the widget
----@param data table The data
+---@param data? table The data
 function GuiInterface:setData(widgetName, data) end
 
 ---*Client only*  
@@ -7988,7 +7988,21 @@ sm.terrainTile = {}
 ---@field pathOrJson string
 ---@field pos Vec3
 ---@field rot Quat
+---@field bodyTransforms? boolean
+---@field mergeCreation? boolean
+---@field restricted? boolean
+---@field erasable? boolean
+---@field buildable? boolean
+---@field paintable? boolean
+---@field connectable? boolean
+---@field liftable? boolean
+---@field usable? boolean
+---@field destructable? boolean
+---@field convertableToDynamic? boolean
+---@field zoneIndex? number
+---@field sortingIndex? number
 ---@field tags string[]
+---@field changeColor? Color[]
 
 ---@class TerrainPrefab
 ---@field name string
