@@ -5477,24 +5477,16 @@ sm.areaTrigger = {}
 --- - <strong>dynamicBody</strong> &ndash; Detects [Body, bodies] that are free to move around in the world.
 --- - <strong>staticBody</strong> &ndash; Detects [Body, bodies] that are built on the ground or on the lift.
 --- - <strong>character</strong> &ndash; Detects [Character, characters] such as players.
---- - <strong>areatrigger</strong> &ndash; Detects [AreaTrigger, areatriggers] such as water areas.
+--- - <strong>areaTrigger</strong> &ndash; Detects [AreaTrigger, areatriggers] such as water areas.
 --- - <strong>harvestable</strong> &ndash; Detects [Harvestable, harvestables] such as planted objects.
 --- - <strong>lift</strong> &ndash; Detects [Lift, lifts].
 --- - <strong>voxelTerrain</strong> &ndash; Detects destructible terrain.
 --- - <strong>all</strong> &ndash; Detects all of the object types above. (Default)
----dynamicBody  
----staticBody  
----character  
----areatrigger  
----harvestable  
----lif  
----voxelTerrain
----all
 sm.areaTrigger.filter = {
     dynamicBody = 1,
     staticBody = 2,
     character = 4,
-    areatrigger = 8,
+    areaTrigger = 8,
     harvestable = 512,
     lift = 1024,
     voxelTerrain = 32768,
