@@ -5498,24 +5498,16 @@ sm.areaTrigger = {}
 --- - <strong>dynamicBody</strong> &ndash; Detects [Body, bodies] that are free to move around in the world.
 --- - <strong>staticBody</strong> &ndash; Detects [Body, bodies] that are built on the ground or on the lift.
 --- - <strong>character</strong> &ndash; Detects [Character, characters] such as players.
---- - <strong>areatrigger</strong> &ndash; Detects [AreaTrigger, areatriggers] such as water areas.
+--- - <strong>areaTrigger</strong> &ndash; Detects [AreaTrigger, areatriggers] such as water areas.
 --- - <strong>harvestable</strong> &ndash; Detects [Harvestable, harvestables] such as planted objects.
 --- - <strong>lift</strong> &ndash; Detects [Lift, lifts].
 --- - <strong>voxelTerrain</strong> &ndash; Detects destructible terrain.
 --- - <strong>all</strong> &ndash; Detects all of the object types above. (Default)
----dynamicBody  
----staticBody  
----character  
----areatrigger  
----harvestable  
----lif  
----voxelTerrain
----all
 sm.areaTrigger.filter = {
     dynamicBody = 1,
     staticBody = 2,
     character = 4,
-    areatrigger = 8,
+    areaTrigger = 8,
     harvestable = 512,
     lift = 1024,
     voxelTerrain = 32768,
@@ -9746,11 +9738,19 @@ function Load() end
 ---@param data any Some data that the world might provide, for example, the path to a world file.
 function Create( xMin, xMax, yMin, yMax, seed, data ) end
 
----Called before any of the **Get<parameter>At** and **Get<objects>ForCell** functions are called.  
+---Called before any of the **Get\<parameter\>At** and **Get\<objects\>ForCell** functions are called.  
 ---Generally used to set up data that will be used for those functions later.  
+---
+---The bits of the `loadFlags` mask, from least significant to most significant bit, correspond to:  
+---1. Creations
+---2. Surface
+---3. Assets
+---4. Nodes (broken, always 0)
+---5. Harvestables
+---6. Kinematics
 ---@param cellX number The x coordinate of the cell.
 ---@param cellY number The y coordinate of the cell.
----@param loadFlags number A mask that determines what to load, seems to only be usable for sm.terrainTile.getContentFromPrefab.
+---@param loadFlags integer A mask of what should be loaded by the current thread. Usually used for sm.terrainTile.getContentFromPrefab.
 function PrepareCell( cellX, cellY, loadFlags ) end
 
 ---Should return the path of the tile with the given uuid.  
