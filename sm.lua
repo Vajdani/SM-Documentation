@@ -3469,9 +3469,30 @@ function Tool:setFpRenderables(renderables) end
 ---@param suppressed boolean Whether interaction texts are suppressed.
 function Tool:setInteractionTextSuppressed(suppressed) end
 
+
+---@alias MovementAnimation string
+---| "idle"
+---| "idleRelaxed"
+---| "sprint"
+---| "runFwd"
+---| "runBwd"
+---| "jump"
+---| "jumpUp"
+---| "jumpDown"
+---| "land"
+---| "landFwd"
+---| "landBwd"
+---| "crouchIdle"
+---| "crouchFwd"
+---| "crouchBwd"
+---| "swimIdle"
+---| "swimFwd"
+---| "swimBwd"
+
+
 ---*Client only*  
 ---Sets the current third person view movement animation to be used by the tool.  
----@param name string The name.
+---@param name MovementAnimation The name.
 ---@param animation string The animation.
 function Tool:setMovementAnimation(name, animation) end
 
@@ -5173,9 +5194,9 @@ function sm.cell.getInteractablesByAnyUuid(x, y, uuids) end
 ---*Can only be used in a server_onCellLoaded callback.*
 ---@param x integer The X-coordinate.
 ---@param y integer The Y-coordinate.
----@param tags table A table {string, ...} of tags to match with.
+---@param tag string A tag to match with.
 ---@return Interactable[]
-function sm.cell.getInteractablesByTag(x, y, tags) end
+function sm.cell.getInteractablesByTag(x, y, tag) end
 
 ---*Server only*  
 ---Returns a table of [sm.interactable, interactables] which contain all of the given tags for a cell coordinate.  
