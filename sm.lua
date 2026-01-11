@@ -2441,7 +2441,7 @@ function World:isIndoor() end
 ---@param player? Player A player to load for the cell for.
 ---@param callback? string Lua function to call when cell is loaded. Callback parameters are ( world, x, y, player, params, handle )
 ---@param params? any Parameter object passed to the callback.
----@param ref? ref Script ref to callback object.
+---@param ref? table Script ref to callback object.
 ---@return integer
 function World:loadCell(x, y, player, callback, params, ref) end
 
@@ -2449,7 +2449,7 @@ function World:loadCell(x, y, player, callback, params, ref) end
 ---@param x integer Cell X position.
 ---@param y integer Cell Y Position.
 ---@param callback? string Lua function to call when cell is reloaded. Callback parameters are ( world, x, y, result ) (Optional)
----@param ref? ref Script ref to callback object. (Optional)
+---@param ref? table Script ref to callback object. (Optional)
 function World:reloadCell(x, y, callback, ref) end
 
 ---Set data to pass on to the terrain generation script. If no data is set the terrain generation script receives the same data as the world script.  
@@ -5160,6 +5160,16 @@ function sm.creation.importFromFile(world, pathString, worldPosition, worldRotat
 ---@return table
 function sm.creation.importFromString(world, jsonString, worldPosition, worldRotation, importTransforms, forceInactive) end
 
+---Creates a blueprint shape
+---**Warning:**
+---This function doesn't work as of 0.7.3
+---@param uuid Uuid The uuid.
+---@param globalPosition Vec3 The global position.
+---@param globalRotation Quat The global rotation.
+---@param localPosition Vec3 The local position.
+---@param localRotation Quat The local rotation.
+---@return Shape blueprintShape The created shape.
+function sm.creation.buildBlueprintShape(uuid, globalPosition, globalRotation, localPosition, localRotation) end
 
 ---The <strong>cell</strong> api exposes and expands on parts of the world loading process.  
 ---These methods are commonly called from cell loading callbacks in World type scripts.  
