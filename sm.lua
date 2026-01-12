@@ -4279,10 +4279,10 @@ sm.vec3 = {}
 function sm.vec3.bezier2(c0, c1, c2, t) end
 
 ---Cubic Bezier interpolation. Three dimensional bezier curve.  
----@param c0 number The start point.
----@param c1 number The first control point.
----@param c2 number The second control point.
----@param c3 number The end point.
+---@param c0 Vec3 The start point.
+---@param c1 Vec3 The first control point.
+---@param c2 Vec3 The second control point.
+---@param c3 Vec3 The end point.
 ---@param t number The interpolation step.
 ---@return number
 function sm.vec3.bezier3(c0, c1, c2, c3, t) end
