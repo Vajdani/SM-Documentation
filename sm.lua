@@ -4284,7 +4284,7 @@ function sm.vec3.bezier2(c0, c1, c2, t) end
 ---@param c2 Vec3 The second control point.
 ---@param c3 Vec3 The end point.
 ---@param t number The interpolation step.
----@return number
+---@return Vec3
 function sm.vec3.bezier3(c0, c1, c2, c3, t) end
 
 ---Finds the closest axis-aligned vector from the given vector  
