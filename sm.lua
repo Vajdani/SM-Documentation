@@ -1115,7 +1115,7 @@ function Interactable:getBody() end
 
 ---Returns a table of child [Interactable, interactables] that an interactable is connected to. The children listen to the interactable's output.  
 ---@param flags? integer Connection type flags filter. (defaults to all types except for sm.interactable.connectionType.bearing (for backwards compability))
----@return Interactable[]|Joint[]
+---@return (Interactable|Joint)[]
 function Interactable:getChildren(flags) end
 
 ---Returns the connection-point highlight color of an interactable. The point is shown when using the <em>Connect Tool</em>.  
@@ -5072,24 +5072,13 @@ function sm.projectile.solveBallisticArc(firePos, targetPos, velocity, gravity) 
 ---Information about melee attacks are located in `/Data/Melee/attacks.json`.  
 sm.melee = {}
 
----@deprecated Name is deprecated, use uuid instead
 ---Perform a melee attack  
+---@deprecated Name is deprecated, use uuid instead
 ---@param name string The name of the melee attack.
 ---@param damage integer The damage the attack will inflict.
 ---@param origin Vec3 The source position of the attack.
 ---@param directionRange Vec3 The direction and reach of the attack.
----@param source Player The player that is the source of the attack.
----@param delay? integer The number of ticks before performing the attack. (Defaults to 0)
----@param power? number The strength of the knockback power.
-function sm.melee.meleeAttack(name, damage, origin, directionRange, source, delay, power) end
-
----@deprecated Name is deprecated, use uuid instead
----Perform a melee attack  
----@param name string The name of the melee attack.
----@param damage integer The damage the attack will inflict.
----@param origin Vec3 The source position of the attack.
----@param directionRange Vec3 The direction and reach of the attack.
----@param source Unit The unit that is the source of the attack.
+---@param source Unit|Player The source of the attack.
 ---@param delay? integer The number of ticks before performing the attack. (Defaults to 0)
 ---@param power? number The strength of the knockback power.
 function sm.melee.meleeAttack(name, damage, origin, directionRange, source, delay, power) end
@@ -5099,17 +5088,7 @@ function sm.melee.meleeAttack(name, damage, origin, directionRange, source, dela
 ---@param damage integer The damage the attack will inflict.
 ---@param origin Vec3 The source position of the attack.
 ---@param directionRange Vec3 The direction and reach of the attack.
----@param source Player The player that is the source of the attack.
----@param delay? integer The number of ticks before performing the attack. (Defaults to 0)
----@param power? number The strength of the knockback power.
-function sm.melee.meleeAttack(uuid, damage, origin, directionRange, source, delay, power) end
-
----Perform a melee attack  
----@param uuid Uuid The uuid of the melee attack.
----@param damage integer The damage the attack will inflict.
----@param origin Vec3 The source position of the attack.
----@param directionRange Vec3 The direction and reach of the attack.
----@param source Unit The unit that is the source of the attack.
+---@param source Unit|Player The source of the attack.
 ---@param delay? integer The number of ticks before performing the attack. (Defaults to 0)
 ---@param power? number The strength of the knockback power.
 function sm.melee.meleeAttack(uuid, damage, origin, directionRange, source, delay, power) end
@@ -7105,8 +7084,8 @@ function sm.tool.uuidExists(The) end
 ---*For more information about sound and particle effects that affect all players, see [sm.effect].*
 sm.audio = {}
 
----@deprecated Audio is deprecated, use Effect instead
 ---A table with all the names of available sounds in the game.  
+---@deprecated Audio is deprecated, use Effect instead
 sm.audio.soundList = {}
 
 ---All of the audio names that can be used with sm.audio.play.
