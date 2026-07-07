@@ -2961,7 +2961,7 @@ Effect.id = {}
 ---@param callback string The name of the callback to bind.
 ---@param params? any Parameter object passed to the callback. (Optional)
 ---@param reference? table Table to recieve the callback. (Optional)
-function Effect:bindEventCallback(methodName, params, reference) end
+function Effect:bindEventCallback(callback, params, reference) end
 
 ---*Client only*  
 ---Clear all lua effect callbacks.  
