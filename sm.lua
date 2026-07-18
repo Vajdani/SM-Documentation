@@ -7420,6 +7420,7 @@ sm.areaTrigger.areaTriggerProxyType = {
     water        = 1,  
     interactable = 2,  
     ladder       = 3,  
+    melee        = 4,  
 }
 
 ---Filters are used to specify what object types an area trigger is able to detect. If an area trigger is created with a filter, it will <strong>only</strong> react to objects of that type. Filters can be combined by adding them.  
