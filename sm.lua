@@ -5125,7 +5125,7 @@ function GuiInterface:setGridButtonCallback(buttonName, callback) end
 ---Sets an item in a grid  
 ---@param gridName string # The name of the grid
 ---@param index integer # The item index
----@param item table # The item
+---@param item? table # The item
 function GuiInterface:setGridItem(gridName, index, item) end
 
 ---*Client only*  
