@@ -5225,8 +5225,8 @@ function GuiInterface:setRequireLineOfSight(required) end
 ---*Client only*  
 ---Sets the selected item in a dropdown widget
 ---@param widget string The dropdown widget
----@param item string The item to be selected in the dropdown 
-function GuiInterface:setSelectedDropDownItem() end
+---@param item string The item to be selected in the dropdown
+function GuiInterface:setSelectedDropDownItem(widget, item) end
 
 ---*Client only*  
 ---Selects an item in a list  
