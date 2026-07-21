@@ -3058,10 +3058,10 @@ function World:isVoxelTerrainPointClear(referencePosition, testPosition) end
 ---Load a cell for player. The cell will stay loaded until the player steps into the cell.  
 ---@param x integer # Cell X position.
 ---@param y integer # Cell Y Position.
----@param player Player # A player to load for, can be nil.
+---@param player? Player # A player to load for, can be nil.
 ---@param callback? string # Lua function to call when cell is loaded. Callback parameters are ( world, x, y, player, params )
 ---@param params? any # Parameter object passed to the callback.
----@param ref? ref # Script ref to callback object.
+---@param ref? table # Script ref to callback object.
 function World:loadCell(x, y, player, callback, params, ref) end
 
 ---Load a cell. The cell will stay loaded until the cell is released with [LoadCellHandle].release()  
@@ -3070,7 +3070,7 @@ function World:loadCell(x, y, player, callback, params, ref) end
 ---@param y integer # Cell Y Position.
 ---@param callback? string # Lua function to call when cell is loaded. Callback parameters are ( world, x, y, params )
 ---@param params? any # Parameter object passed to the callback.
----@param ref? ref # Script ref to callback object.
+---@param ref? table # Script ref to callback object.
 ---@return LoadCellHandle # Handle to releasing cell.
 function World:loadCellWithHandle(x, y, callback, params, ref) end
 
@@ -3081,7 +3081,7 @@ function World:loadCellWithHandle(x, y, callback, params, ref) end
 ---@param y integer # Cell Y Position.
 ---@param callback? string # Lua function to call when cell nav mesh is created. Callback parameters are ( world, x, y, params )
 ---@param params? any # Parameter object passed to the callback.
----@param ref? ref # Script ref to callback object.
+---@param ref? table # Script ref to callback object.
 ---@return LoadCellHandle # Handle to releasing cell.
 function World:loadNavMeshWithHandle(x, y, callback, params, ref) end
 
@@ -3089,7 +3089,7 @@ function World:loadNavMeshWithHandle(x, y, callback, params, ref) end
 ---@param x integer # Cell X position.
 ---@param y integer # Cell Y Position.
 ---@param callback? string # Lua function to call when cell is reloaded. Callback parameters are ( world, x, y, result ) (Optional)
----@param ref? ref # Script ref to callback object. (Optional)
+---@param ref? table # Script ref to callback object. (Optional)
 ---@param params? any # Parameter passed to the callback. (Optional)
 function World:reloadCell(x, y, callback, ref, params) end
 
@@ -4351,6 +4351,310 @@ function Unit:setWhiskerData(whiskerCount, maxAngle, startLength, endLength) end
 ---@operator eq(AiState): boolean
 local AiState = {}
 
+---**Get**:
+---*Server only*
+---Gets the debug name of the state.  
+---**Set**:
+---*Server only*  
+---Sets the debug name of the state.  
+---@type string
+AiState.debugName = {}
+
+---**Get**:
+---*Server only*
+---Gets the timeout of the state.  
+---**Set**:
+---*Server only*  
+---Sets the timeout of the state.  
+---@type number
+AiState.timeout = {}
+
+---**Get**:
+---*Server only*
+---Gets the tolerance of the state.  
+---**Set**:
+---*Server only*  
+---Sets the tolerance of the state.  
+---@type number
+AiState.tolerance = {}
+
+---**Get**:
+---*Server only*
+---Gets whether the state has avoidance.  
+---**Set**:
+---*Server only*  
+---Sets whether the state has avoidance.  
+---@type boolean
+AiState.avoidance = {}
+
+---**Get**:
+---*Server only*
+---Gets the movement type of the state.  
+---**Set**:
+---*Server only*  
+---Sets the movement type of the state.  
+---@type string
+AiState.movementType = {}
+
+---**Get**:
+---*Server only*
+---Gets the melee type of the state.  
+---**Set**:
+---*Server only*  
+---Sets the melee type of the state.  
+---@type Uuid
+AiState.meleeType = {}
+
+---**Get**:
+---*Server only*
+---Gets the event name of the state.  
+---**Set**:
+---*Server only*  
+---Sets the event name of the state.  
+---@type string
+AiState.event = {}
+
+---**Get**:
+---*Server only*
+---Gets the damage of the state.  
+---**Set**:
+---*Server only*  
+---Sets the damage of the state.  
+---@type number
+AiState.damage = {}
+
+---**Get**:
+---*Server only*
+---Gets the attack range of the state.  
+---**Set**:
+---*Server only*  
+---Sets the attack range of the state.  
+---@type number
+AiState.attackRange = {}
+
+---**Get**:
+---*Server only*
+---Gets the animation cooldown of the state.  
+---**Set**:
+---*Server only*  
+---Sets the animation cooldown of the state.  
+---@type number
+AiState.animationCooldown = {}
+
+---**Get**:
+---*Server only*
+---Gets the attack cooldown of the state.  
+---**Set**:
+---*Server only*  
+---Sets the attack cooldown of the state.  
+---@type number
+AiState.attackCooldown = {}
+
+---**Get**:
+---*Server only*
+---Gets the global cooldown of the state.  
+---**Set**:
+---*Server only*  
+---Sets the global cooldown of the state.  
+---@type number
+AiState.globalCooldown = {}
+
+---**Get**:
+---*Server only*
+---Gets the attack delay of the state.  
+---**Set**:
+---*Server only*  
+---Sets the attack delay of the state.  
+---@type number
+AiState.attackDelay = {}
+
+---**Get**:
+---*Server only*
+---Gets the power of the state.  
+---**Set**:
+---*Server only*  
+---Sets the power of the state.  
+---@type number
+AiState.power = {}
+
+---**Get**:
+---*Server only*
+---Gets the movement angle threshold of the state.  
+---**Set**:
+---*Server only*  
+---Sets the movement angle threshold of the state.  
+---@type number
+AiState.movementAngleThreshold = {}
+
+---**Get**:
+---*Server only*
+---Gets the maximum flee time of the state.  
+---**Set**:
+---*Server only*  
+---Sets the maximum flee time of the state.  
+---@type number
+AiState.maxFleeTime = {}
+
+---**Get**:
+---*Server only*
+---Gets the maximum deviation of the state.  
+---**Set**:
+---*Server only*  
+---Sets the maximum deviation of the state.  
+---@type number
+AiState.maxDeviation = {}
+
+---**Get**:
+---*Server only*
+---Gets the time of the state.  
+---**Set**:
+---*Server only*  
+---Sets the time of the state.  
+---@type number
+AiState.time = {}
+
+---**Get**:
+---*Server only*
+---Gets whether the state is interruptible.  
+---**Set**:
+---*Server only*  
+---Sets whether the state is interruptible.  
+---@type boolean
+AiState.interruptible = {}
+
+---**Get**:
+---*Server only*
+---Gets the name of the state.  
+---**Set**:
+---*Server only*  
+---Sets the name of the state.  
+---@type string
+AiState.name = {}
+
+---**Get**:
+---*Server only*
+---Gets the spread angle of the state.  
+---**Set**:
+---*Server only*  
+---Sets the spread angle of the state.  
+---@type number
+AiState.spreadAngle = {}
+
+---**Get**:
+---*Server only*
+---Gets the cooldown of the state.  
+---**Set**:
+---*Server only*  
+---Sets the cooldown of the state.  
+---@type number
+AiState.cooldown = {}
+
+---**Get**:
+---*Server only*
+---Gets the aim time of the state.  
+---**Set**:
+---*Server only*  
+---Sets the aim time of the state.  
+---@type number
+AiState.aimTime = {}
+
+---**Get**:
+---*Server only*
+---Gets the projectile of the state.  
+---**Set**:
+---*Server only*  
+---Sets the projectile of the state.  
+---@type Uuid
+AiState.projectile = {}
+
+---**Get**:
+---*Server only*
+---Gets the offset of the state.  
+---**Set**:
+---*Server only*  
+---Sets the offset of the state.  
+---@type Vec3
+AiState.offset = {}
+
+---**Get**:
+---*Server only*
+---Gets the velocity of the state.  
+---**Set**:
+---*Server only*  
+---Sets the velocity of the state.  
+---@type number
+AiState.velocity = {}
+
+---**Get**:
+---*Server only*
+---Gets whether the states prefers high angle shots.  
+---**Set**:
+---*Server only*  
+---Setsthe whether the state prefers high angle shots.  
+---@type boolean
+AiState.preferHighAngle = {}
+
+---**Get**:
+---*Server only*
+---Gets the delay of the state.  
+---**Set**:
+---*Server only*  
+---Sets the delay of the state.  
+---@type number
+AiState.delay = {}
+
+---**Get**:
+---*Server only*
+---Gets the tether position of the state.  
+---**Set**:
+---*Server only*  
+---Sets the tether position of the state.  
+---@type Vec3
+AiState.tetherPosition = {}
+
+---**Get**:
+---*Server only*
+---Gets the roam center offset of the state.  
+---**Set**:
+---*Server only*  
+---Sets the roam center offset of the state.  
+---@type number
+AiState.roamCenterOffset = {}
+
+---**Get**:
+---*Server only*
+---Gets the minimum random event cooldown  of the state.  
+---**Set**:
+---*Server only*  
+---Sets the minimum random event cooldown  of the state.  
+---@type number
+AiState.randomEventCooldownMin = {}
+
+---**Get**:
+---*Server only*
+---Gets the maximum random event cooldown  of the state.  
+---**Set**:
+---*Server only*  
+---Sets the maximum random event cooldown  of the state.  
+---@type number
+AiState.randomEventCooldownMax = {}
+
+---@class AiStateEvent
+---@field name string
+---@field time number
+---@field interruptible boolean
+---@field chance number
+
+---**Get**:
+---*Server only*
+---Gets the random events of the state.  
+---**Set**:
+---*Server only*  
+---Sets the random events of the state.  
+---@type AiStateEvent[]
+AiState.randomEvents = {}
+
+
 ---*Server only*  
 ---Returns the state's facing direction.  
 ---@return Vec3 # The direction.
@@ -5097,7 +5401,7 @@ function GuiInterface:setContainers(gridName, containers) end
 ---*Client only*  
 ---Sets data to a widget  
 ---@param widgetName string # The name of the widget
----@param data table # The data
+---@param data? table # The data
 function GuiInterface:setData(widgetName, data) end
 
 ---*Client only*  
@@ -6346,8 +6650,8 @@ function sm.physics.isSphereHittingLiquid(position, world, radius) end
 ---@field startPoint Vec3
 ---@field endPoint Vec3
 ---@field radius number
----@field mask number
----@field ignoreUuids Uuid[]
+---@field mask? number
+---@field ignoreUuids? Uuid[]
 
 ---Performs multiple sphere and/or raycasts given a table of parameters.  
 ---Type can be "sphere" or "ray". Radius is ignored for rays.  
@@ -9437,22 +9741,15 @@ sm.pathfinder.conditionProperty = {
 }
 
 ---@class PathfinderAbilities 
----@field canWalk boolean
----@field canSwim boolean
-
----@class PathfinderCostValue
----@field ground number
----@field water number
----@field chemicals number
----@field oil number
----@field lava number
+---@field canWalk? boolean
+---@field canSwim? boolean
 
 ---@class PathfinderCosts
----@field ground PathfinderCostValue
----@field water PathfinderCostValue
----@field chemicals PathfinderCostValue
----@field oil PathfinderCostValue
----@field lava PathfinderCostValue
+---@field ground? number
+---@field water? number
+---@field chemicals? number
+---@field oil? number
+---@field lava? number
 
 ---*Server only*  
 ---Constrain a point to nav mesh. Returns original point if no nav mesh is found.  
@@ -9471,7 +9768,7 @@ function sm.pathfinder.constrainPointToNavMesh(world, point, abilities) end
 ---@param destination Vec3 # The path destination
 ---@param groundPos? boolean # If the destination is ground level (ignored if nav mesh is used) (Defaults to true)
 ---@param abilities? PathfinderAbilities # Table of actor abilities { canWalk=boolean, canSwim=boolean }. Defaults to character abilities.
----@param costs? PathfinderCostValue # Table of traverse area costs [1-10] { ground=number, water=number, chemicals=number, oil=number, lava=number }. Defaults to default costs.
+---@param costs? PathfinderCosts # Table of traverse area costs [1-10] { ground=number, water=number, chemicals=number, oil=number, lava=number }. Defaults to default costs.
 ---@return NodePathElement[] # The path as table of PathNodes
 function sm.pathfinder.getPath(character, destination, groundPos, abilities, costs) end
 
@@ -9506,7 +9803,7 @@ function sm.pathfinder.getSortedNodes(worldPosition, minDist, maxDist) end
 ---@param start Vec3 # The path start
 ---@param destination Vec3 # The path destination
 ---@param abilities? PathfinderAbilities # Table of actor abilities { canWalk=boolean, canSwim=boolean }. Defaults to all abilities.
----@param costs? PathfinderCostValue # Table of traverse area costs [1-10] { ground=number, water=number, chemicals=number, oil=number, lava=number }. Defaults to default costs.
+---@param costs? PathfinderCosts # Table of traverse area costs [1-10] { ground=number, water=number, chemicals=number, oil=number, lava=number }. Defaults to default costs.
 ---@return PathNode[] # The path as table of PathNodes
 function sm.pathfinder.getWorldPath(world, start, destination, abilities, costs) end
 
@@ -11106,7 +11403,7 @@ sm.terrainTile.loadFlags = {
 ---@field rot Quat
 ---@field scale Vec3
 ---@field tags string[]
----@field flags integer
+---@field flags number
 
 ---@class TerrainNode
 ---@field pos Vec3
@@ -11119,7 +11416,7 @@ sm.terrainTile.loadFlags = {
 ---@field uuid Uuid
 ---@field pos Vec3
 ---@field rot Quat
----@field colors { string : Color }
+---@field colors { [string] : Color }
 ---@field tags string[]
 ---@field slopeNormal? Vec3
 
