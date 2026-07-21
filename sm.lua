@@ -6714,14 +6714,13 @@ sm.interactable.types = {
 --- - The <strong>piston</strong> extends and contracts to change the distance between two bodies. (See [Interactable.getPistons])
 sm.joint = {}
 
----@alias JointType string
----| "bearing"
----| "spring"
----| "piston"
-
 ---"bearing"A bearing part.  
 ---"piston"A piston part.  
-sm.joint.types = {"bearing",  "spring", "piston"}
+sm.joint.types = {
+    "bearing",
+    "spring",
+    "piston"
+}
 
 
 ---Information about projectiles are located in `/Data/Projectiles/ProjectileSets/projectiles.json`.  
@@ -9747,7 +9746,7 @@ function sm.tool.getLiftMaxLevel() end
 
 ---*Client only*  
 ---Pre-loads renderable data to be used by the tool. This eliminates excessive loading during run time.  
----@param renderables string The table of renderables names. {string, ..}
+---@param renderables string[] The table of renderables names. {string, ..}
 function sm.tool.preloadRenderables(renderables) end
 
 ---Return whether the tool uuid exists  
