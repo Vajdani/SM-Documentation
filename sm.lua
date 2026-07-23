@@ -13254,6 +13254,8 @@ function WorldClass:server_onMining(spawns) end
 ---@field storage Storage (Server side only.) A [Storage] object that can be used to store data for the next time loading this object after being unloaded.
 local ToolClass = class()
 
+---Toggles whether the tool can be equipped while the owner is sitting in a seat.
+---@type boolean
 ToolClass.equipWhileSeated = {}
 
 ---Called when the scripted object is created. This occurs when a new object is built, spawned, or loaded from the save file.  
