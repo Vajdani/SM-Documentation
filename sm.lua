@@ -7018,6 +7018,7 @@ sm.interactable.types = {
     "logic",
     "timer",
     "particlePreview",
+    "audioPreview",
     "spring",
     "pointLight",
     "spotLight",
