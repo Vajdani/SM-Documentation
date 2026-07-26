@@ -9751,6 +9751,25 @@ function sm.unit.getAllUnits(world) end
 function sm.unit.getUnitsInRange(world, position, range, heightModifier) end
 
 
+---Achievement events will not be processed with edited core files or mods enabled.  
+sm.achievement = {}
+
+---
+function sm.achievement.addf() end
+
+---
+function sm.achievement.addi() end
+
+---
+function sm.achievement.setf() end
+
+---
+function sm.achievement.seti() end
+
+---
+function sm.achievement.pushToContext() end
+
+
 ---Pathfinder  
 sm.pathfinder = {}
 
