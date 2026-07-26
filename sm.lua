@@ -10026,6 +10026,20 @@ function sm.compromised.getCompromisedShapes() end
 ---Undocumented
 function sm.compromised.hasCompromisedShapes() end
 
+---Undocumented
+sm.fire = {}
+
+---Undocumented
+function sm.fire.isAreaBurning() end
+
+---Undocumented
+function sm.fire.setFireLimit() end
+
+---Undocumented
+function sm.fire.igniteSphere() end
+
+---Undocumented
+function sm.fire.getBurningShapes() end
 
 ---A <strong>tool</strong> is a scripted tool a player holds in their hand. The tool object is focused on handling animations for first and third person view.  
 ---For more information about creating your own scripted tools, see [ToolClass, ToolClass].  
