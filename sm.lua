@@ -6627,7 +6627,7 @@ function sm.physics.getShapeContactsInBox(position, rotation, halfExtents, world
 ---Returns a table of all shapes colliding with a given sphere.  
 ---@param center Vec3 # The center position of the sphere.
 ---@param radius number # The radius of the sphere.
----@param world World # The world to search in. (optional)
+---@param world World? # The world to search in. (optional)
 ---@return ShapeContacts # The table of found shapes. {{shape=[Shape], contactWorldPosition=[Vec3] }, ..}
 function sm.physics.getShapeContactsInSphere(center, radius, world) end
 
