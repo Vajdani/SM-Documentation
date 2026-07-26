@@ -10014,6 +10014,7 @@ function sm.game.setLimitedInventory(isLimited) end
 ---@param time number # The fraction of the day cycle.
 function sm.game.setTimeOfDay(time) end
 
+
 ---Undocumented
 sm.compromised = {}
 
@@ -10025,6 +10026,7 @@ function sm.compromised.getCompromisedShapes() end
 
 ---Undocumented
 function sm.compromised.hasCompromisedShapes() end
+
 
 ---Undocumented
 sm.fire = {}
@@ -10040,6 +10042,7 @@ function sm.fire.igniteSphere() end
 
 ---Undocumented
 function sm.fire.getBurningShapes() end
+
 
 ---A <strong>tool</strong> is a scripted tool a player holds in their hand. The tool object is focused on handling animations for first and third person view.  
 ---For more information about creating your own scripted tools, see [ToolClass, ToolClass].  
@@ -11350,6 +11353,10 @@ function sm.render.setVolumetricFog(min, max, loopSpeed, scrollSpeed, scale, int
 ---The value is capped by the current draw distance quality.  
 ---@param boost number # Voxel terrain LOD boost.
 function sm.render.setVoxelLODBoost(boost) end
+
+
+---Empty
+sm.profiler = {}
 
 
 ---The <strong>Garage</strong> library contains various utility functions for handling the garage.  
