@@ -8094,9 +8094,9 @@ sm.item = {}
 
 ---Item tracking filter types 
 sm.item.trackingType = {
-    "mainQuest",
-    "sideQuest",
-    "researchable"
+    mainQuest = 0,
+    sideQuest = 1,
+    researchable = 2,
 }
 
 ---*Client only*  
