@@ -6734,10 +6734,10 @@ sm.shape = {}
 
 ---Shape destruction types. Using these will handle the destruction as if it was caused by the specified type.          
 sm.shape.destructionType = {
-    "None",
-    "Melee",
-    "Projectile",
-    "Explosion"
+    none = 0,
+    projectile = 1,
+    melee = 2,
+    explosion = 3,
 }
 
 ---Shape physics materials                                                                         
