@@ -9770,20 +9770,30 @@ function sm.unit.getUnitsInRange(world, position, range, heightModifier) end
 ---Achievement events will not be processed with edited core files or mods enabled.  
 sm.achievement = {}
 
----Undocumented
-function sm.achievement.addf() end
+---@param uuidString string
+---@param value number
+---@param playerIds integer[]?
+function sm.achievement.addf(uuidString, value, playerIds) end
 
----Undocumented
-function sm.achievement.addi() end
+---@param uuidString string
+---@param value integer
+---@param playerIds integer[]?
+function sm.achievement.addi(uuidString, value, playerIds) end
 
----Undocumented
-function sm.achievement.setf() end
+---@param uuidString string
+---@param value number
+---@param playerIds integer[]?
+function sm.achievement.setf(uuidString, value, playerIds) end
 
----Undocumented
-function sm.achievement.seti() end
+---@param uuidString string
+---@param value integer
+---@param playerIds integer[]?
+function sm.achievement.seti(uuidString, value, playerIds) end
 
----Undocumented
-function sm.achievement.pushToContext() end
+---@param name string
+---@param data any
+---@param playerIds integer[]?
+function sm.achievement.pushToContext(name, data, playerIds) end
 
 
 ---Pathfinder  
