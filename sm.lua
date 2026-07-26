@@ -6448,13 +6448,16 @@ sm.physics.filter = {
     staticBody = 2,
     character = 4,
     areaTrigger = 8,
+    waterArea = 16,
     terrainSurface = 128,
     terrainAsset = 256,
     harvestable = 512,
     joints = 4096,
-    static = 34690,
-    default = 38791,
     voxelTerrain = 32768,
+    allTerrain = 33152,
+    static = 558978,
+    default = 563079,
+    portalArea = 2097152,
 }
 
 ---Physics types are used to define an object's characteristics is in the physics world. Upon a raycast or collision detection, these types are used to find out what object was intersected.  
@@ -6487,7 +6490,8 @@ sm.physics.types = {
     "areaTrigger",
     "vision",
     "voxelTerrain",
-    "tunnelCatcher"
+    "tunnelCatcher",
+    "debris",
 }
 
 ---Applies an impulse to a [Shape], changing its velocity immediately. The impulse is applied to the shape's centerpoint with an optional offset.  
