@@ -8554,13 +8554,12 @@ function sm.jsonGui.getViewSize() end
 sm.effect = {}
 
 ---Rotation axis removal types for hosted effects. Not combinable
----@type string[]
 sm.effect.axis = {
-    "xaxis",
-    "yaxis",
-    "zaxis",
-    "all",
-    "none"
+    none = 0,
+    xaxis = 1,
+    yaxis = 2,
+    zaxis = 3,
+    all = 4,
 }
 
 ---All of the vanilla effect names that can be used with sm.effect functions. If the effect doesnt play, then the effect isnt present in the current gamemode. (Can be fixed by adding it to your effect set)
