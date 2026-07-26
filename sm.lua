@@ -10014,6 +10014,18 @@ function sm.game.setLimitedInventory(isLimited) end
 ---@param time number # The fraction of the day cycle.
 function sm.game.setTimeOfDay(time) end
 
+---Undocumented
+sm.compromised = {}
+
+---Undocumented
+function sm.compromised.compromiseShapeInSphere() end
+
+---Undocumented
+function sm.compromised.getCompromisedShapes() end
+
+---Undocumented
+function sm.compromised.hasCompromisedShapes() end
+
 
 ---A <strong>tool</strong> is a scripted tool a player holds in their hand. The tool object is focused on handling animations for first and third person view.  
 ---For more information about creating your own scripted tools, see [ToolClass, ToolClass].  
