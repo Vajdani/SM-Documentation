@@ -7696,6 +7696,20 @@ function sm.player.getAllPlayers(getInactive) end
 ---@return Player # The host player.
 function sm.player.getHostPlayer() end
 
+---*Server only*  
+---Place down a lift game object  
+---@param player Player # The player that owns the lift.
+---@param creation Body[] # The bodies to place on the lift. {[Body], ..}
+---@param position Vec3 # The lift position.
+---@param level integer # The lift level.
+---@param rotation integer # The rotation of the creation on the lift.
+function sm.player.placeLift(player, creation, position, level, rotation) end
+
+---*Server only*  
+---Remove the player's lift, if the lift exists.  
+---@param player Player # The player that owns the lift.
+function sm.player.removeLift(player) end
+
 
 ---An <strong>area trigger</strong> is an invisible collider in the world that can trigger events when objects move in or out of it. This allows the script to, for instance, detect when a character enters a door, or count the number of shapes there are in a room.  
 ---Example usage:  
