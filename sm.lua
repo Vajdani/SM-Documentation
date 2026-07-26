@@ -13136,7 +13136,7 @@ WorldClass.isIndoor = {}
 WorldClass.isStatic = {}
 
 ---Sets the render mode for this world. (Default "outdoor")  
----Possible values: "outdoor", "challenge", "warehouse"  
+---Possible values: "outdoor", "challenge", "warehouse", "mini_dungeon", "underground"  
 ---@type string
 WorldClass.renderMode = {}
 
