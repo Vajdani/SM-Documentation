@@ -9770,19 +9770,19 @@ function sm.unit.getUnitsInRange(world, position, range, heightModifier) end
 ---Achievement events will not be processed with edited core files or mods enabled.  
 sm.achievement = {}
 
----
+---Undocumented
 function sm.achievement.addf() end
 
----
+---Undocumented
 function sm.achievement.addi() end
 
----
+---Undocumented
 function sm.achievement.setf() end
 
----
+---Undocumented
 function sm.achievement.seti() end
 
----
+---Undocumented
 function sm.achievement.pushToContext() end
 
 
@@ -10050,32 +10050,55 @@ function sm.game.setLimitedInventory(isLimited) end
 function sm.game.setTimeOfDay(time) end
 
 
----Undocumented
+---Library for <strong>compromised</strong> shape management.  
+---See CablebotManager.lua  
 sm.compromised = {}
 
----Undocumented
-function sm.compromised.compromiseShapeInSphere() end
+---*Server only*  
+---Compromises a [Shape, shape] within the sphere.  
+---@param position Vec3 # The center position of the sphere.  
+---@param radius number # The radius of the sphere.  
+---@return Shape # The compromised shape.  
+function sm.compromised.compromiseShapeInSphere(position, radius) end
 
----Undocumented
+---*Server only*  
+---Returns a table of all compromised [Shape, shapes].  
+---@return Shape[] # The table of compromised shapes. {[Shape], ..}  
 function sm.compromised.getCompromisedShapes() end
 
----Undocumented
-function sm.compromised.hasCompromisedShapes() end
+---*Server only*  
+---Returns whether there are any compromised [Shape, shapes].  
+---@param world World # The world to check for compromised shapes in.
+---@return boolean # True if there are compromised shapes.  
+function sm.compromised.hasCompromisedShapes(world) end
 
 
----Undocumented
+---Library for <strong>fire</strong> management.  
 sm.fire = {}
 
----Undocumented
-function sm.fire.isAreaBurning() end
+---*Server only*  
+---Returns whether there is any fire in the sphere.  
+---@param position Vec3 # The position of the sphere.  
+---@param radius number # The radius of the sphere.  
+---@param world World # The world to check for fire in.  
+---@return boolean # True if there is fire in the sphere.  
+function sm.fire.isAreaBurning(position, radius, world) end
 
----Undocumented
-function sm.fire.setFireLimit() end
+---*Server only*  
+---Sets the limit of fire instances.  
+---@param limit integer # The limit of fire instances.  
+function sm.fire.setFireLimit(limit) end
 
----Undocumented
-function sm.fire.igniteSphere() end
+---*Server only*  
+---Ignites everything in the sphere.  
+---@param position Vec3 # The position of the sphere.  
+---@param radius number # The radius of the sphere.  
+---@param bool boolean? # Undocumented. Optional.  
+function sm.fire.igniteSphere(position, radius, bool) end
 
----Undocumented
+---*Server only*  
+---Returns a table of all burning [Shape, shapes].  
+---@return Shape[] # The table of burning shapes. {[Shape], ..}  
 function sm.fire.getBurningShapes() end
 
 
