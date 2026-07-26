@@ -5730,46 +5730,47 @@ sm = {}
 sm.isHost = {}
 
 ---Lua types  
----nil  
----boolean  
----number  
----string  
----function  
----userdata  
----thread  
----table  
----uuid  
----vec3  
----quat  
----color  
----raycastResult  
----loadCellHandle  
----effect  
----shape  
----body  
----interactable  
----container  
----harvestable  
----network  
----world  
----unit  
----storage  
----player  
----character  
----joint  
----aiState  
----quest  
----areaTrigger  
----portal  
----pathNode  
----lift  
----scriptableObject  
----builderGuide  
----cullSphereGroup  
----voxelTerrain  
----jsonGui  
----jsonWidget  
----clientScriptableObject  
+---nil
+---boolean
+---lightUserdata
+---number
+---string
+---table
+---function
+---userdata
+---thread
+---quest
+---areaTrigger
+---portal
+---pathNode
+---lift
+---scriptableObject
+---builderGuide
+---cullSphereGroup
+---voxelTerrain
+---jsonGui
+---jsonWidget
+---clientScriptableObject
+---uuid
+---vec3
+---quat
+---color
+---raycastResult
+---loadCellHandle
+---effect
+---shape
+---body
+---interactable
+---container
+---harvestable
+---network
+---world
+---unit
+---storage
+---player
+---character
+---joint
+---aiState
 sm.types = {
     ["nil"] = 0,
     boolean = 1,
@@ -6477,6 +6478,7 @@ sm.physics.filter = {
 ---"vision" A collision area used by sensors.
 ---"voxelTerrain" A voxel terrain grid.
 ---"tunnelCatcher" The trigger that teleports things when they fall off the world.
+---"debris" Visual objects that have no impact on any other object.
 sm.physics.types = {
     "limiter",
     "terrainSurface",
@@ -6986,6 +6988,7 @@ sm.interactable.steering = {
 ---| "logic"
 ---| "timer"
 ---| "particlePreview"
+---| "audioPreview"
 ---| "spring"
 ---| "pointLight"
 ---| "spotLight"
