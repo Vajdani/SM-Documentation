@@ -7768,7 +7768,7 @@ sm.areaTrigger.filter = {
     harvestable = 512,
     lift = 1024,
     voxelTerrain = 32768,
-    all = 34319
+    all = 50703
 }
 
 ---Defines the liquid type of an area trigger.  
@@ -7779,10 +7779,10 @@ sm.areaTrigger.filter = {
 --- - <strong>oil</strong> &ndash; Oil. No special behavior beyond the water proxy buoyancy.
 --- - <strong>lava</strong> &ndash; Lava. Occasionally destroys submerged shapes. Requires [AreaTrigger]: setIncludeShapesInContent.
 sm.areaTrigger.liquidType = {
-    "water",
-    "chemical",
-    "oil",
-    "lava"
+    water = 0,
+    chemical = 1,
+    oil = 2,
+    lava = 3,
 }
 
 ---Creates an area trigger box with a given size that stays attached to an [sm.character, character]  
