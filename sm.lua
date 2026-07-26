@@ -9356,9 +9356,9 @@ sm.pipeGraph = {}
 
 ---Pipe direction types      
 sm.pipeGraph.direction = {
-    "any",
-    "incoming",
-    "outgoing"
+    any = 0,
+    incoming = 1,
+    outgoing = 2,
 }
 
 ---*Client only*  
