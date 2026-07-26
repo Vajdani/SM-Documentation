@@ -10697,17 +10697,16 @@ function sm.camera.setUnseatDirection(worldDirection) end
 ---This library can only be used on the <a href="index.html#client">client</a>.  
 sm.gui = {}
 
----Widget states  
----@type strin[]
+---Widget states
 sm.gui.widgetStates = {
-    "disabled",
-    "normal",
-    "highlighted",
-    "pushed",
-    "disabled_checked",
-    "normal_checked",
-    "highlighted_checked",
-    "pushed_checked"
+    disabled = 0,
+    normal = 1,
+    highlighted = 2,
+    pushed = 3,
+    disabled_checked = 4,
+    normal_checked = 5,
+    highlighted_checked = 6,
+    pushed_checked = 7,
 }
 
 ---*Client only*  
