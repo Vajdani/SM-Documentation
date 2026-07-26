@@ -7992,9 +7992,9 @@ sm.event = {}
 ---blind	Will blindly queue the event without making any validation checks. Can be useful for sending events to script we know will come alive the next tick.  
 ---instant	Same as blind event, but sent immediately.  
 sm.event.types = {
-    "validate",
-    "blind",
-    "instant"
+    validate = 0,
+    blind = 1,
+    instant = 2,
 }
 
 ---Sends an event to a specified [Character].  
