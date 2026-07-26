@@ -9791,7 +9791,7 @@ function sm.achievement.setf(uuidString, value, playerIds) end
 function sm.achievement.seti(uuidString, value, playerIds) end
 
 ---@param name string
----@param data any
+---@param data table
 ---@param playerIds integer[]?
 function sm.achievement.pushToContext(name, data, playerIds) end
 
