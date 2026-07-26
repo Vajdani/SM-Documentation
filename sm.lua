@@ -10094,7 +10094,8 @@ function sm.fire.setFireLimit(limit) end
 ---@param position Vec3 # The position of the sphere.  
 ---@param radius number # The radius of the sphere.  
 ---@param bool boolean? # Undocumented. Optional.  
-function sm.fire.igniteSphere(position, radius, bool) end
+---@param world World? # The world to ignite fire in.  
+function sm.fire.igniteSphere(position, radius, bool, world) end
 
 ---*Server only*  
 ---Returns a table of all burning [Shape, shapes].  
