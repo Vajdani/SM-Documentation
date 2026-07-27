@@ -5730,87 +5730,89 @@ sm = {}
 sm.isHost = {}
 
 ---Lua types  
----nil  
----boolean  
----number  
----string  
----function  
----userdata  
----thread  
----table  
----uuid  
----vec3  
----quat  
----color  
----raycastResult  
----loadCellHandle  
----effect  
----shape  
----body  
----interactable  
----container  
----harvestable  
----network  
----world  
----unit  
----storage  
----player  
----character  
----joint  
----aiState  
----quest  
----areaTrigger  
----portal  
----pathNode  
----lift  
----scriptableObject  
----builderGuide  
----cullSphereGroup  
----voxelTerrain  
----jsonGui  
----jsonWidget  
----clientScriptableObject  
+---nil
+---boolean
+---lightUserdata
+---number
+---string
+---table
+---function
+---userdata
+---thread
+---quest
+---areaTrigger
+---portal
+---pathNode
+---lift
+---scriptableObject
+---builderGuide
+---cullSphereGroup
+---voxelTerrain
+---jsonGui
+---jsonWidget
+---clientScriptableObject
+---uuid
+---vec3
+---quat
+---color
+---raycastResult
+---loadCellHandle
+---effect
+---shape
+---body
+---interactable
+---container
+---harvestable
+---network
+---world
+---unit
+---storage
+---player
+---character
+---joint
+---aiState
 sm.types = {
-    "nil",
-    "boolean",
-    "number",
-    "string",
-    "function",
-    "userdata",
-    "thread",
-    "table",
-    "uuid",
-    "vec3",
-    "quat",
-    "color",
-    "raycastResult",
-    "loadCellHandle",
-    "effect",
-    "shape",
-    "body",
-    "interactable",
-    "container",
-    "harvestable",
-    "network",
-    "world",
-    "unit",
-    "storage",
-    "player",
-    "character",
-    "joint",
-    "aiState",
-    "quest",
-    "areaTrigger",
-    "portal",
-    "pathNode",
-    "lift",
-    "scriptableObject",
-    "builderGuide",
-    "cullSphereGroup",
-    "voxelTerrain",
-    "jsonGui",
-    "jsonWidget",
-    "clientScriptableObject"
+    ["nil"] = 0,
+    boolean = 1,
+    lightUserdata = 2,
+    number = 3,
+    string = 4,
+    table = 5,
+    ["function"] = 6,
+    userdata = 7,
+    thread = 8,
+    quest = 10034,
+    areaTrigger = 10035,
+    portal = 10036,
+    pathNode = 10037,
+    lift = 10038,
+    scriptableObject = 10039,
+    builderGuide = 10040,
+    cullSphereGroup = 10041,
+    voxelTerrain = 10042,
+    jsonGui = 10043,
+    jsonWidget = 10044,
+    clientScriptableObject = 10045,
+    uuid = 10001,
+    vec3 = 10003,
+    quat = 10004,
+    color = 10005,
+    raycastResult = 10006,
+    loadCellHandle = 10007,
+    effect = 10008,
+    shape = 10021,
+    body = 10022,
+    interactable = 10023,
+    container = 10024,
+    harvestable = 10025,
+    network = 10026,
+    world = 10027,
+    unit = 10028,
+    storage = 10029,
+    player = 10030,
+    character = 10031,
+    joint = 10032,
+    aiState = 10033,
 }
 
 ---Returns the current version of the game as a string.  
@@ -6448,13 +6450,16 @@ sm.physics.filter = {
     staticBody = 2,
     character = 4,
     areaTrigger = 8,
+    waterArea = 16,
     terrainSurface = 128,
     terrainAsset = 256,
     harvestable = 512,
     joints = 4096,
-    static = 34690,
-    default = 38791,
     voxelTerrain = 32768,
+    allTerrain = 33152,
+    static = 558978,
+    default = 563079,
+    portalArea = 2097152,
 }
 
 ---Physics types are used to define an object's characteristics is in the physics world. Upon a raycast or collision detection, these types are used to find out what object was intersected.  
@@ -6473,6 +6478,7 @@ sm.physics.filter = {
 ---"vision" A collision area used by sensors.
 ---"voxelTerrain" A voxel terrain grid.
 ---"tunnelCatcher" The trigger that teleports things when they fall off the world.
+---"debris" Visual objects that have no impact on any other object.
 sm.physics.types = {
     "limiter",
     "terrainSurface",
@@ -6487,7 +6493,8 @@ sm.physics.types = {
     "areaTrigger",
     "vision",
     "voxelTerrain",
-    "tunnelCatcher"
+    "tunnelCatcher",
+    "debris",
 }
 
 ---Applies an impulse to a [Shape], changing its velocity immediately. The impulse is applied to the shape's centerpoint with an optional offset.  
@@ -6620,7 +6627,7 @@ function sm.physics.getShapeContactsInBox(position, rotation, halfExtents, world
 ---Returns a table of all shapes colliding with a given sphere.  
 ---@param center Vec3 # The center position of the sphere.
 ---@param radius number # The radius of the sphere.
----@param world World # The world to search in. (optional)
+---@param world World? # The world to search in. (optional)
 ---@return ShapeContacts # The table of found shapes. {{shape=[Shape], contactWorldPosition=[Vec3] }, ..}
 function sm.physics.getShapeContactsInSphere(center, radius, world) end
 
@@ -6729,49 +6736,67 @@ sm.shape = {}
 
 ---Shape destruction types. Using these will handle the destruction as if it was caused by the specified type.          
 sm.shape.destructionType = {
-    "None",
-    "Melee",
-    "Projectile",
-    "Explosion"
+    none = 0,
+    projectile = 1,
+    melee = 2,
+    explosion = 3,
 }
 
 ---Shape physics materials                                                                         
 sm.shape.material = {
-    "None",
-    "Default",
-    "Grass",
-    "Dirt",
-    "Sand",
-    "Gravel",
-    "Rock",
-    "Wood",
-    "Plastic",
-    "Metal",
-    "Glass",
-    "Fence",
-    "Fabric",
-    "Cardboard",
-    "Foliage",
-    "Tape",
-    "Water",
-    "WaterSubmerged",
-    "RagdollHuman",
-    "Mechanical",
-    "Fruit",
-    "RagdollAnimal",
-    "Electronics",
-    "Sticky",
-    "Ice",
-    "Bubblewrap",
-    "Scrapmetal",
-    "Rewardlocker",
-    "Chili",
-    "VoxelBlueRock",
-    "VoxelPurpleRock",
-    "VoxelRedRock",
-    "VoxelBlueMineral",
-    "VoxelPurpleMineral",
-    "VoxelRedMineral"
+    grass = 2,
+    gravel = 5,
+    hvs_disconite = 36,
+    hvs_matrixium = 35,
+    ice = 24,
+    matrixium = 37,
+    mechanical = 19,
+    metal = 9,
+    metalslippery = 34,
+    none = 0,
+    plastic = 8,
+    popcorn = 33,
+    ragdollanimal = 21,
+    ragdollhuman = 18,
+    rewardlocker = 27,
+    rock = 6,
+    rubber = 29,
+    sand = 4,
+    scrapmetal = 26,
+    slime = 30,
+    slimeslippery = 32,
+    sticky = 23,
+    tape = 15,
+    voxel_bedrock = 100,
+    voxel_clay = 111,
+    voxel_crimsonite = 108,
+    voxel_dirt = 112,
+    voxel_goopite = 107,
+    voxel_ice = 113,
+    voxel_junk = 110,
+    voxel_orerich = 106,
+    voxel_rock1_a = 101,
+    voxel_rock1_b = 102,
+    voxel_rock1_c = 103,
+    voxel_rock2 = 104,
+    default = 1,
+    voxel_thornite = 109,
+    water = 16,
+    watersubmerged = 17,
+    wood = 7,
+    voxel_rock3 = 105,
+    bots = 31,
+    bubblewrap = 25,
+    cardboard = 13,
+    chili = 28,
+    dirt = 3,
+    disconite = 38,
+    electronics = 22,
+    fabric = 12,
+    fence = 11,
+    foilage = 14,
+    fruit = 20,
+    glass = 10,
 }
 
 ---*Server only*  
@@ -6963,6 +6988,7 @@ sm.interactable.steering = {
 ---| "logic"
 ---| "timer"
 ---| "particlePreview"
+---| "audioPreview"
 ---| "spring"
 ---| "pointLight"
 ---| "spotLight"
@@ -6995,6 +7021,7 @@ sm.interactable.types = {
     "logic",
     "timer",
     "particlePreview",
+    "audioPreview",
     "spring",
     "pointLight",
     "spotLight",
@@ -7672,6 +7699,20 @@ function sm.player.getAllPlayers(getInactive) end
 ---@return Player # The host player.
 function sm.player.getHostPlayer() end
 
+---*Server only*  
+---Place down a lift game object  
+---@param player Player # The player that owns the lift.
+---@param creation Body[] # The bodies to place on the lift. {[Body], ..}
+---@param position Vec3 # The lift position.
+---@param level integer # The lift level.
+---@param rotation integer # The rotation of the creation on the lift.
+function sm.player.placeLift(player, creation, position, level, rotation) end
+
+---*Server only*  
+---Remove the player's lift, if the lift exists.  
+---@param player Player # The player that owns the lift.
+function sm.player.removeLift(player) end
+
 
 ---An <strong>area trigger</strong> is an invisible collider in the world that can trigger events when objects move in or out of it. This allows the script to, for instance, detect when a character enters a door, or count the number of shapes there are in a room.  
 ---Example usage:  
@@ -7744,7 +7785,7 @@ sm.areaTrigger.filter = {
     harvestable = 512,
     lift = 1024,
     voxelTerrain = 32768,
-    all = 34319
+    all = 50703
 }
 
 ---Defines the liquid type of an area trigger.  
@@ -7755,10 +7796,10 @@ sm.areaTrigger.filter = {
 --- - <strong>oil</strong> &ndash; Oil. No special behavior beyond the water proxy buoyancy.
 --- - <strong>lava</strong> &ndash; Lava. Occasionally destroys submerged shapes. Requires [AreaTrigger]: setIncludeShapesInContent.
 sm.areaTrigger.liquidType = {
-    "water",
-    "chemical",
-    "oil",
-    "lava"
+    water = 0,
+    chemical = 1,
+    oil = 2,
+    lava = 3,
 }
 
 ---Creates an area trigger box with a given size that stays attached to an [sm.character, character]  
@@ -7951,9 +7992,9 @@ sm.event = {}
 ---blind	Will blindly queue the event without making any validation checks. Can be useful for sending events to script we know will come alive the next tick.  
 ---instant	Same as blind event, but sent immediately.  
 sm.event.types = {
-    "validate",
-    "blind",
-    "instant"
+    validate = 0,
+    blind = 1,
+    instant = 2,
 }
 
 ---Sends an event to a specified [Character].  
@@ -8056,9 +8097,9 @@ sm.item = {}
 
 ---Item tracking filter types 
 sm.item.trackingType = {
-    "mainQuest",
-    "sideQuest",
-    "researchable"
+    mainQuest = 0,
+    sideQuest = 1,
+    researchable = 2,
 }
 
 ---*Client only*  
@@ -8516,13 +8557,12 @@ function sm.jsonGui.getViewSize() end
 sm.effect = {}
 
 ---Rotation axis removal types for hosted effects. Not combinable
----@type string[]
 sm.effect.axis = {
-    "xaxis",
-    "yaxis",
-    "zaxis",
-    "all",
-    "none"
+    none = 0,
+    xaxis = 1,
+    yaxis = 2,
+    zaxis = 3,
+    all = 4,
 }
 
 ---All of the vanilla effect names that can be used with sm.effect functions. If the effect doesnt play, then the effect isnt present in the current gamemode. (Can be fixed by adding it to your effect set)
@@ -9316,9 +9356,9 @@ sm.pipeGraph = {}
 
 ---Pipe direction types      
 sm.pipeGraph.direction = {
-    "any",
-    "incoming",
-    "outgoing"
+    any = 0,
+    incoming = 1,
+    outgoing = 2,
 }
 
 ---*Client only*  
@@ -9727,6 +9767,35 @@ function sm.unit.getAllUnits(world) end
 function sm.unit.getUnitsInRange(world, position, range, heightModifier) end
 
 
+---Achievement events will not be processed with edited core files or mods enabled.  
+sm.achievement = {}
+
+---@param uuidString string
+---@param value number
+---@param playerIds integer[]?
+function sm.achievement.addf(uuidString, value, playerIds) end
+
+---@param uuidString string
+---@param value integer
+---@param playerIds integer[]?
+function sm.achievement.addi(uuidString, value, playerIds) end
+
+---@param uuidString string
+---@param value number
+---@param playerIds integer[]?
+function sm.achievement.setf(uuidString, value, playerIds) end
+
+---@param uuidString string
+---@param value integer
+---@param playerIds integer[]?
+function sm.achievement.seti(uuidString, value, playerIds) end
+
+---@param name string
+---@param data table
+---@param playerIds integer[]?
+function sm.achievement.pushToContext(name, data, playerIds) end
+
+
 ---Pathfinder  
 sm.pathfinder = {}
 
@@ -9989,6 +10058,59 @@ function sm.game.setLimitedInventory(isLimited) end
 ---Sets the fraction value of how far the current day has progressed.  
 ---@param time number # The fraction of the day cycle.
 function sm.game.setTimeOfDay(time) end
+
+
+---Library for <strong>compromised</strong> shape management.  
+---See CablebotManager.lua  
+sm.compromised = {}
+
+---*Server only*  
+---Compromises a [Shape, shape] within the sphere.  
+---@param position Vec3 # The center position of the sphere.  
+---@param radius number # The radius of the sphere.  
+---@return Shape # The compromised shape.  
+function sm.compromised.compromiseShapeInSphere(position, radius) end
+
+---*Server only*  
+---Returns a table of all compromised [Shape, shapes].  
+---@return Shape[] # The table of compromised shapes. {[Shape], ..}  
+function sm.compromised.getCompromisedShapes() end
+
+---*Server only*  
+---Returns whether there are any compromised [Shape, shapes].  
+---@param world World # The world to check for compromised shapes in.
+---@return boolean # True if there are compromised shapes.  
+function sm.compromised.hasCompromisedShapes(world) end
+
+
+---Library for <strong>fire</strong> management.  
+sm.fire = {}
+
+---*Server only*  
+---Returns whether there is any fire in the sphere.  
+---@param position Vec3 # The position of the sphere.  
+---@param radius number # The radius of the sphere.  
+---@param world World # The world to check for fire in.  
+---@return boolean # True if there is fire in the sphere.  
+function sm.fire.isAreaBurning(position, radius, world) end
+
+---*Server only*  
+---Sets the limit of fire instances.  
+---@param limit integer # The limit of fire instances.  
+function sm.fire.setFireLimit(limit) end
+
+---*Server only*  
+---Ignites everything in the sphere.  
+---@param position Vec3 # The position of the sphere.  
+---@param radius number # The radius of the sphere.  
+---@param bool boolean? # Undocumented. Optional.  
+---@param world World? # The world to ignite fire in.  
+function sm.fire.igniteSphere(position, radius, bool, world) end
+
+---*Server only*  
+---Returns a table of all burning [Shape, shapes].  
+---@return Shape[] # The table of burning shapes. {[Shape], ..}  
+function sm.fire.getBurningShapes() end
 
 
 ---A <strong>tool</strong> is a scripted tool a player holds in their hand. The tool object is focused on handling animations for first and third person view.  
@@ -10575,17 +10697,16 @@ function sm.camera.setUnseatDirection(worldDirection) end
 ---This library can only be used on the <a href="index.html#client">client</a>.  
 sm.gui = {}
 
----Widget states  
----@type strin[]
+---Widget states
 sm.gui.widgetStates = {
-    "disabled",
-    "normal",
-    "highlighted",
-    "pushed",
-    "disabled_checked",
-    "normal_checked",
-    "highlighted_checked",
-    "pushed_checked"
+    disabled = 0,
+    normal = 1,
+    highlighted = 2,
+    pushed = 3,
+    disabled_checked = 4,
+    normal_checked = 5,
+    highlighted_checked = 6,
+    pushed_checked = 7,
 }
 
 ---*Client only*  
@@ -11300,6 +11421,10 @@ function sm.render.setVolumetricFog(min, max, loopSpeed, scrollSpeed, scale, int
 ---The value is capped by the current draw distance quality.  
 ---@param boost number # Voxel terrain LOD boost.
 function sm.render.setVoxelLODBoost(boost) end
+
+
+---Empty
+sm.profiler = {}
 
 
 ---The <strong>Garage</strong> library contains various utility functions for handling the garage.  
@@ -13011,7 +13136,7 @@ WorldClass.isIndoor = {}
 WorldClass.isStatic = {}
 
 ---Sets the render mode for this world. (Default "outdoor")  
----Possible values: "outdoor", "challenge", "warehouse"  
+---Possible values: "outdoor", "challenge", "warehouse", "mini_dungeon", "underground"  
 ---@type string
 WorldClass.renderMode = {}
 
