@@ -11857,15 +11857,21 @@ sm.tunnelGenerator = {}
 ---@field dirB? Vec3
 ---@field pathingSettings string
 
----Returns an array table of pathing results. Each element consisting of a table {positions={[Vec3],...}} of position arrays.  
+---@class TunnelBlocker
+---@field mi Vec3
+---@field mx Vec3
+---@field type string
+
+---Returns an array table of pathing results. Each element consisting of a table {{positions={[Vec3],...}} of position arrays.  
 ---@param seed integer # Simplex noise seed.
 ---@param min Vec3 # Grid min x (inclusive).
 ---@param max Vec3 # Grid max x (non inclusive).
----@param pathingSettings TunnelPathingSettings # An table of available pathing settings to be used by tunnel requests. {costNoiseFrequency=number,costNoiseIntensity=number,costZPenalty=number}
+---@param pathingSettings { [string]: TunnelPathingSettings } # An table of available pathing settings to be used by tunnel requests. {costNoiseFrequency=number,costNoiseIntensity=number,costZPenalty=number}
 ---@param tunnelRequests TunnelRequest[] # An array table of tunnel requests. {{posA=[Vec3], posB=[Vec3](, dirA=[Vec3])(, dirB=[Vec3]), pathingSettings=string},...}
+---@param blockers TunnelBlocker[] # An array table of tunnel blockers.  {{mi=[Vec3], mx=[Vec3], type=string},...}
 ---@param gridSize number # Size of each grid cell in world units. (Used for debug draw only.)
 ---@return { positions: Vec3[] }[] # An array table with one tunnel result per request. {{positions={[Vec3],...}}, ...}
-function sm.tunnelGenerator.generate(seed, min, max, pathingSettings, tunnelRequests, gridSize) end
+function sm.tunnelGenerator.generate(seed, min, max, pathingSettings, tunnelRequests, blockers, gridSize) end
 
 
 ---@class CharacterClass
