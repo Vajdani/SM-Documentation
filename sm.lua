@@ -2704,8 +2704,9 @@ function Player:removeLift() end
 function Player:sendCharacterEvent(event) end
 
 ---*Server only*  
----Set the carry data on a player.  
-function Player:setCarryData() end
+---Set the carry data on a player.
+---@param data table  
+function Player:setCarryData(data) end
 
 ---*Server only*  
 ---Sets the character the player is controlling.  
@@ -7332,8 +7333,8 @@ sm.creation = {}
 ---@param shape Uuid # The uuid of shape to build.
 ---@param worldPosition Vec3 # World position of shape.
 ---@param worldRotation Quat # World rotation of shape.
----@param localPosition Vec3 # Local position of shape.
----@param localRotation Quat # Local rotation of shape.
+---@param localPosition? Vec3 # Local position of shape.
+---@param localRotation? Quat # Local rotation of shape.
 function sm.creation.buildMultiShape(shape, worldPosition, worldRotation, localPosition, localRotation) end
 
 ---*Server only*  
@@ -8142,7 +8143,7 @@ function sm.item.getDurabilityRating(uuid) end
 ---@return Edible # The edible data.
 function sm.item.getEdible(uuid) end
 
----@class FeatureData
+---@class FeatureData : table
 ---@field filename string
 ---@field classname string
 ---@field data table
@@ -10846,7 +10847,7 @@ function sm.gui.createGlowstickContainerGui(destroyOnClose) end
 ---@field backgroundAlpha? number The alpha of the background(0 - transparent | 1 - opaque, black background)
 ---@field handleKeySetup? boolean Unknown
 ---@field name? string Unknown
----@field layer? number Unknown
+---@field layer? string Unknown
 
 ---*Client only*  
 ---Create a GUI from a layout file.  
