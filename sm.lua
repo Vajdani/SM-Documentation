@@ -7355,13 +7355,13 @@ function sm.creation.exportToTable(body, exportTransforms, forceDynamic) end
 ---Returns a table with uuid's and quantity. A body can be sent in to remove from blueprint cost.  
 ---@param filePath string # The file path for the blueprint.
 ---@param bodyId? integer # The id of a body.(Optional)
----@return [Uuid, number][] # The table of { [Uuid], quantity }
+---@return {uuid: Uuid, quantity: number}[] # The table of {uuid: Uuid, quantity: number}
 function sm.creation.getBlueprintCost(filePath, bodyId) end
 
 ---Returns a table with uuid's and quantity. A body can be sent in to remove from blueprint cost.  
 ---@param table table # The lua table for the blueprint.
 ---@param bodyId? integer # The id of a body.(Optional)
----@return [Uuid, number][] # The table of { [Uuid], quantity }
+---@return {uuid: Uuid, quantity: number}[] # The table of {uuid: Uuid, quantity: number}
 function sm.creation.getBlueprintCost(table, bodyId) end
 
 ---*Server only*  
