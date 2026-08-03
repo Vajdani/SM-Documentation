@@ -5246,13 +5246,16 @@ function GuiInterface:close() end
 ---Add an icon to the compass.  
 ---@param iconName string # Name of the new compass icon.
 ---@param image? string # The name or path of the image. (Optional)
----@param showDistance? string # If the icon should display distance. (Optional)
----@param width? string # The width of the icon, defaults to 22. (Optional)
----@param height? string # The height of the icon, defaults to 22. (Optional)
+---@param showDistance? boolean # If the icon should display distance. (Optional)
+---@param width? integer # The width of the icon, defaults to 22. (Optional)
+---@param height? integer # The height of the icon, defaults to 22. (Optional)
 function GuiInterface:compassAddIcon(iconName, image, showDistance, width, height) end
 
 ---*Client only*  
-function GuiInterface:compassPingMarker() end
+---Plays an effect on an icon on the compass.  
+---@param iconName string # Name of the compass icon.
+---@param effectName string # The name of the effect
+function GuiInterface:compassPingMarker(iconName, effectName) end
 
 ---*Client only*  
 ---Remove an icon from the compass.  
