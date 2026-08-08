@@ -6651,10 +6651,10 @@ function sm.physics.isPointInLiquid(position, world) end
 
 ---Returns whether a sphere is hitting a liquid or not.  
 ---@param position Vec3 # The world position to check.
----@param world? World # The world to check in.
 ---@param radius number # The radius of the sphere.
+---@param world? World # The world to check in.
 ---@return boolean # Whether the sphere is hitting a liquid or not
-function sm.physics.isSphereHittingLiquid(position, world, radius) end
+function sm.physics.isSphereHittingLiquid(position, radius, world) end
 
 ---@class MulticastData
 ---@field type string
