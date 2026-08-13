@@ -5694,7 +5694,8 @@ function Garage:importBlueprint() end
 
 ---*Client only*  
 ---Tracks a blueprint from a garage and synchronizes it to all other clients.  
-function Garage:trackBlueprint() end
+---@param pathString string # The blueprint path.
+function Garage:trackBlueprint(pathString) end
 
 ---Untrack a blueprint from a garage and synchronizes it to all other clients.  
 function Garage:untrackBlueprint() end
@@ -9910,6 +9911,9 @@ sm.game = {}
 ---@param player Player # The player to be banned.
 function sm.game.banPlayer(player) end
 
+---{ type, name (, optional, autocomplete ) }
+---@alias ChatCommandParam { [1]: "string"|"int"|"number"|"bool", [2]: string, [3]: boolean?, [4]: any[]? }
+
 ---Binds a chat command to a callback function. The callback function receives an array of parameters. The first parameter is the command itself.  
 ---Example:  
 ---```
@@ -9926,7 +9930,7 @@ function sm.game.banPlayer(player) end
 ---end
 ---```
 ---@param command string # The command.
----@param params table # An array of parameters the callback function expects in the form of { { type, name (, optional, autocomplete ) }, ... }. The first is the <strong>type</strong> name of the parameter as a string. Valid types are "bool", "int", "number" and "string". The second is the <strong>name</strong> in the help text. Defaults to automatic naming ("p1", "p2", "p3", ...). The third is a bool value where true means that this parameter is <strong>optional</strong> (Optional, defaults to false). The fourth is a list of values that can be auto-completed to by pressing tab (Optional).
+---@param params ChatCommandParam[] # An array of parameters the callback function expects in the form of { { type, name (, optional, autocomplete ) }, ... }. The first is the <strong>type</strong> name of the parameter as a string. Valid types are "bool", "int", "number" and "string". The second is the <strong>name</strong> in the help text. Defaults to automatic naming ("p1", "p2", "p3", ...). The third is a bool value where true means that this parameter is <strong>optional</strong> (Optional, defaults to false). The fourth is a list of values that can be auto-completed to by pressing tab (Optional).
 ---@param callback string # The name of the Lua function to bind.
 ---@param help string # Help text.
 function sm.game.bindChatCommand(command, params, callback, help) end
@@ -10848,7 +10852,7 @@ function sm.gui.createGlowstickContainerGui(destroyOnClose) end
 ---@field hidesHotbar? boolean Whether the gui hides the hotbar or not
 ---@field isOverlapped? boolean Unknown
 ---@field backgroundAlpha? number The alpha of the background(0 - transparent | 1 - opaque, black background)
----@field handleKeySetup? boolean Unknown
+---@field handleKeySetup? string Unknown
 ---@field name? string Unknown
 ---@field layer? string Unknown
 
@@ -11437,15 +11441,15 @@ sm.garage = {}
 ---Creates a new garage.  
 ---The garage is a spawn area for creations defined by a bounding box. The garage can track blueprints and import them into the world.  
 ---The garage is identified by an user specified id.  
----@param garageId int # The id of the garage to create
----@param worldId uint # The world the garage is in
+---@param garageId integer # The id of the garage to create
+---@param world World # The world the garage is in
 ---@param halfextents Vec3 # Half extents of the spawnbox inside the garage
 ---@param position Vec3 # Position of the spawn box inside the garage
 ---@return Garage		Garage					The Garage object
-function sm.garage.createGarage(garageId, worldId, halfextents, position) end
+function sm.garage.createGarage(garageId, world, halfextents, position) end
 
 ---Gets a already existing garage returns nil if it does not exist.  
----@param garageId uint # The id of the garage to get
+---@param garageId integer # The id of the garage to get
 ---@return Garage		Garage					The Garage object
 function sm.garage.getGarage(garageId) end
 
