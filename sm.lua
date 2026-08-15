@@ -5255,7 +5255,8 @@ function GuiInterface:compassAddIcon(iconName, image, showDistance, width, heigh
 ---Plays an effect on an icon on the compass.  
 ---@param iconName string # Name of the compass icon.
 ---@param effectName string # The name of the effect
-function GuiInterface:compassPingMarker(iconName, effectName) end
+---@param color Color? # The color of the effect
+function GuiInterface:compassPingMarker(iconName, effectName, color) end
 
 ---*Client only*  
 ---Remove an icon from the compass.  
