@@ -10159,9 +10159,10 @@ function sm.tool.checkLiftCollision(creation, position, rotation) end
 ---@return boolean								True if the level is valid (no collision).
 function sm.tool.checkLiftCollisionAtLevel(creation, position, rotation, level, timeStamp) end
 
----Find index of column of shades that best matches given color.  
+---Find index of column of shades that best matches given color.
+---@param uintRgba integer # The UintRgba version of the color (Color:getUnitRgba()).  
 ---@return integer # Palette column index.
-function sm.tool.findPaintToolPaletteColumnIndex() end
+function sm.tool.findPaintToolPaletteColumnIndex( uintRgba ) end
 
 ---*Client only*  
 ---Force equip a tool for the local player. Pass nil to unforce an already forced tool.  
