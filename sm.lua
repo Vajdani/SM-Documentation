@@ -1188,6 +1188,11 @@ function Body:transformLocalPoint(point) end
 ---@return Vec3 # The point in local space.
 function Body:transformWorldPoint(point) end
 
+---Transforms a point from world space to local space.  
+---@param point Vec3 # The point in world space.
+---@return Vec3 # The point in local space.
+function Body:transformPoint(point) end
+
 
 ---@class Interactable
 ---Represents an interactable object in the game  
@@ -4711,6 +4716,7 @@ function AiState:stop() end
 
 
 ---@class PathNode
+---@field toNode PathNode
 ---A userdata object representing a PathNode in the game.  
 ---@operator eq(PathNode): boolean
 local PathNode = {}
@@ -6332,6 +6338,11 @@ function sm.quat.lookRotation(at, up) end
 ---@return Quat # The created quaternion.
 function sm.quat.new(x, y, z, w) end
 
+---Creates a new quaternion
+---@param quat Quat
+---@return Quat
+function sm.quat.new(quat) end
+
 ---Rounds the quaternion rotation into 90 degree steps  
 ---@param quaternion Quat The quaternion.
 ---@return Quat # The created quaternion.
@@ -6586,7 +6597,7 @@ function sm.physics.distanceRaycast(start, direction) end
 ---@param parameters? table # The table containing the parameters for the effect. (Optional)
 ---@param world? World # The world to cause the explosion in. (Optional)
 ---@param damage? integer # The damage of the explosion. Defaults to 2 * destruction level (Optional)
----@param source? userdata # The source of the explosion. Defaults to none (Optional)
+---@param source? Harvestable|Player|Shape|Unit # The source of the explosion. Defaults to none (Optional)
 ---@param type? Uuid # The explosionType. Defaults to nil uuid (Optional)
 function sm.physics.explode(position, level, destructionRadius, impulseRadius, magnitude, effectName, ignoreShape, parameters, world, damage, source, type) end
 
@@ -6600,7 +6611,7 @@ function sm.physics.explode(position, level, destructionRadius, impulseRadius, m
 ---@param pos Vec3 # The world position of the box center.
 ---@param rotation Quat # The rotation of the box.
 ---@param halfExtents Vec3 # The half extents of the box.
----@param world World # The world to search in. (optional)
+---@param world? World # The world to search in. (optional)
 ---@param mask? integer # The collision mask. Defaults to [sm.physics.filter, sm.physics.filter.static] and [sm.physics.filter, sm.physics.filter.dynamicBody] and [sm.physics.filter, sm.physics.filter.character] (Optional)
 ---@return SphereContacts # The table with tables of objects found inside the box. { bodies={[Body], ..}, characters={[Character], ..}, harvestables={[Harvestable], ..}, lifts={[Lift], ..} }
 function sm.physics.getBoxContacts(pos, rotation, halfExtents, world, mask) end
@@ -6626,7 +6637,7 @@ function sm.physics.getMaterialId(materialName) end
 ---@param position Vec3 # The center position of the box.
 ---@param rotation Quat # The rotation of the box.
 ---@param halfExtents Vec3 # The halved size of the box.
----@param world World # The world to search in. (optional)
+---@param world? World # The world to search in. (optional)
 ---@return ShapeContacts # The table of found shapes. {{shape=[Shape], contactWorldPosition=[Vec3] }, ..}
 function sm.physics.getShapeContactsInBox(position, rotation, halfExtents, world) end
 
@@ -6643,7 +6654,7 @@ function sm.physics.getShapeContactsInSphere(center, radius, world) end
 ---@param world? World # The world to search in. Defaults to current world (Optional)
 ---@param mask? integer # The collision mask. Defaults to [sm.physics.filter, sm.physics.filter.static] and [sm.physics.filter, sm.physics.filter.dynamicBody] and [sm.physics.filter, sm.physics.filter.character] (Optional)
 ---@return SphereContacts # The table with tables of objects found inside the sphere. { bodies={[Body], ..}, characters={[Character], ..}, harvestables={[Harvestable], ..}, lifts={[Lift], ..} }
-function sm.physics.getSphereContacts(pos, radius) end
+function sm.physics.getSphereContacts(pos, radius, world, mask) end
 
 ---Returns whether a point is in a liquid or not.  
 ---@param position Vec3 # The world position to check.
@@ -7316,7 +7327,7 @@ function sm.melee.getMeleeAttackHits(uuid, origin, directionRange, source) end
 ---@param source Player|Unit # The player that is the source of the attack.
 ---@param delay? integer # The number of ticks before performing the attack. (Defaults to 0)
 ---@param power? number # The strength of the knockback power. (Defaults to 5000)
----@param ignoreCharacters Character[] # A table of characters to ignore in the attack. (optional)
+---@param ignoreCharacters? Character[] # A table of characters to ignore in the attack. (optional)
 function sm.melee.meleeAttack(name, damage, origin, directionRange, source, delay, power, ignoreCharacters) end
 
 ---Perform a melee attack  
@@ -7327,7 +7338,7 @@ function sm.melee.meleeAttack(name, damage, origin, directionRange, source, dela
 ---@param source Player|Unit # The player that is the source of the attack.
 ---@param delay? integer # The number of ticks before performing the attack. (Defaults to 0)
 ---@param power? number # The strength of the knockback power. (Defaults to 5000)
----@param ignoreCharacters Characteer[] # A table of characters to ignore in the attack. (optional)
+---@param ignoreCharacters? Characteer[] # A table of characters to ignore in the attack. (optional)
 function sm.melee.meleeAttack(uuid, damage, origin, directionRange, source, delay, power, ignoreCharacters) end
 
 ---A <strong>Creation</strong> represent a collection of [sm.body, bodies] linked together by [sm.joint, joints].  
@@ -7409,7 +7420,7 @@ sm.cell = {}
 ---3: Large - large trees, visible at a very long distance.  
 ---@param x integer # The X-coordinate.
 ---@param y integer # The Y-coordinate.
----@param size integer # Size of harvestable (defaults to any size).
+---@param size? integer # Size of harvestable (defaults to any size).
 ---@return Harvestable[] # A table {[sm.harvestable, harvestable], ...} of harvestables.
 function sm.cell.getHarvestables(x, y, size) end
 
@@ -7423,7 +7434,7 @@ function sm.cell.getHarvestables(x, y, size) end
 ---@param x integer # The X-coordinate.
 ---@param y integer # The Y-coordinate.
 ---@param uuid Uuid # The uuid of the harvestable(s)
----@param size integer # Size of harvestable (defaults to any size).
+---@param size? integer # Size of harvestable (defaults to any size).
 ---@return Harvestable[] # A table {[sm.harvestable, harvestable], ...} of harvestables.
 function sm.cell.getHarvestablesByUuid(x, y, uuid, size) end
 
@@ -7473,11 +7484,12 @@ function sm.cell.getInteractablesByUuid(x, y, uuid) end
 ---@field connections table
 
 ---@class Node
+---@field position Vec3
+---@field rotation Quat 
 ---@field scale Vec3
 ---@field tags string[]
----@field position Vec3
 ---@field params NodeParams
----@field rotation Quat 
+---@field world? World
 
 ---Returns a table of nodes which contains the given tag for a cell coordinate.  
 ---@param x integer # X-coordinate.
@@ -7611,23 +7623,14 @@ sm.ai = {}
 ---@return boolean # Returns true if the position is available directly.
 function sm.ai.directPathAvailable(unit, position, range) end
 
----Returns true if the character can fire at the target harvestable within a given fire lane.  
----Also returns the aim position that allows the character to succeed.  
----@param character Character # The firing character.
----@param target Harvestable # The target harvestable.
----@param range number # The maximum firing distance.
----@param width number # The width of the fire lane.
----@return boolean,Vec3 # The result.
-function sm.ai.getAimPosition(character, target, range, width) end
-
 ---Returns true if the character can fire at the target character within a given fire lane.  
 ---Also returns the aim position that allows the character to succeed.  
 ---Any obstacle shape that blocks the target, but can be destroyed by the projectile, will be targeted instead.  
 ---@param character Character # The firing character.
----@param target Character # The target character.
+---@param target Harvestable|Character # The target character.
 ---@param range number # The maximum firing distance.
 ---@param width number # The width of the fire lane.
----@param attack integer # The attack level of the projectile. (Defaults to 5)
+---@param attack? integer # The attack level of the projectile. (Defaults to 5)
 ---@return boolean,Vec3 # The result.
 function sm.ai.getAimPosition(character, target, range, width, attack) end
 
@@ -8148,9 +8151,14 @@ function sm.item.getDurabilityRating(uuid) end
 ---@return Edible # The edible data.
 function sm.item.getEdible(uuid) end
 
+---@class GyroData
+---@field yawSensitivityModifier number
+---@field pitchSensitivityModifier number
+
 ---@class FeatureData : table
 ---@field filename string
 ---@field classname string
+---@field gyro? GyroData
 ---@field data table
 ---@field tag string 
 
@@ -8181,6 +8189,8 @@ function sm.item.getMaterialId(uuid) end
 
 ---@class Plantable
 ---@field harvestable string UUID string of the planted harvestable 
+---@field allowInGrowbed boolean Whethe the crop can be planted in the growbed
+---@field growbed Uuid The UUID string of the growbed shape version of the plantable
 
 ---Return the data for the plantable [Shape].  
 ---@param uuid Uuid # The shape uuid.
@@ -8300,7 +8310,8 @@ function sm.challenge.resolveContentPath(path) end
 
 ---*Server only*  
 ---Starts challenge.  
-function sm.challenge.start() end
+---@param world World
+function sm.challenge.start(world) end
 
 ---*Server only*  
 ---Stops challenge.  
@@ -8314,9 +8325,8 @@ function sm.challenge.stop() end
 function sm.challenge.takePicture(width, height, rotation) end
 
 ---*Server only*  
----Takes pictures of the challenge level to use as icon and preview.  
----@param rotation integer # Rotation step.
-function sm.challenge.takePicturesForMenu(rotation) end
+---Takes pictures of the challenge level to use as icon and preview.
+function sm.challenge.takePicturesForMenu() end
 
 ---Used to save and load blueprints displayed in the menu.  
 sm.menuCreation = {}
@@ -8327,8 +8337,9 @@ sm.menuCreation = {}
 function sm.menuCreation.load() end
 
 ---*Server only*  
----Saves the users menu creation blueprint.  
-function sm.menuCreation.save() end
+---Saves the users menu creation blueprint.
+---@param blueprints string[]  
+function sm.menuCreation.save(blueprints) end
 
 
 ---A <strong>portal</strong> moves objects inside a box to another box in another place.  
@@ -8450,54 +8461,20 @@ sm.construction.constants = {
 }
 
 ---*Server only*  
----Builds a block on a shape.  
+---Builds a block on an object.  
 ---@param uuid Uuid # The uuid of the block to build.
 ---@param localPosition Vec3 # The position to build the block on.
----@param shape Shape # The shape to build on.
-function sm.construction.buildBlock(uuid, localPosition, shape) end
+---@param object? Lift|Shape|Joint
+function sm.construction.buildBlock(uuid, localPosition, object) end
 
----*Server only*  
----Builds a block on a joint.  
----@param uuid Uuid # The uuid of the block to build.
----@param localPosition Vec3 # The position to build the block on.
----@param joint Joint # The joint to build on.
-function sm.construction.buildBlock(uuid, localPosition, joint) end
 
----*Server only*  
----Builds a block a lift.  
----@param uuid Uuid # The uuid of the block to build.
----@param localPosition Vec3 # The position to build the block on.
----@param lift Lift # The lift to build on.
-function sm.construction.buildBlock(uuid, localPosition, lift) end
-
----*Server only*  
----Builds a block on terrain.  
----@param uuid Uuid # The uuid of the block to build.
----@param localPosition Vec3 # The position to build the block on.
-function sm.construction.buildBlock(uuid, localPosition) end
-
----Validates if a shape can be built on another shape.  
+---Validates if an object can be built on another object.  
 ---@param uuid Uuid # The uuid of the shape to validate.
 ---@param localPosition Vec3 # The position local to the body.
 ---@param localNormal Vec3 # The normal of the surface to validate placement.
----@param shape Shape # The shape to build on.
+---@param object? Lift|Shape|Joint # The object to build on.
 ---@return boolean # True if position is valid.
-function sm.construction.validateLocalPosition(uuid, localPosition, localNormal, shape) end
-
----Validates if a shape can be built on another joint.  
----@param uuid Uuid # The uuid of the shape to validate.
----@param localPosition Vec3 # The position local to the body.
----@param localNormal Vec3 # The normal of the surface to validate placement.
----@param joint Joint # The joint to build on.
----@return boolean # True if position is valid.
-function sm.construction.validateLocalPosition(uuid, localPosition, localNormal, joint) end
-
----Validates if a shape can be built on terrain.  
----@param uuid Uuid # The uuid of the shape to validate.
----@param localPosition Vec3 # The position local to the body.
----@param localNormal Vec3 # The normal of the surface to validate placement.
----@return boolean # True if position is valid.
-function sm.construction.validateLocalPosition(uuid, localPosition, localNormal) end
+function sm.construction.validateLocalPosition(uuid, localPosition, localNormal, object) end
 
 ---ScriptableObject creation  
 sm.scriptableObject = {}
@@ -9391,7 +9368,7 @@ function sm.pipeGraph.getContainerShapeToSpendFrom(requester, item, quantities) 
 
 ---Returns a table of all connected input containers sorted by closest first. If the asking shape doesn't have input and output directions it returns all connected containers.  
 ---@param requester Shape # The shape connected to the pipe graph who's connected chests you want.
----@return Container[] # containers		A table of connected container shapes sorted by closest first.
+---@return Shape[] containers # A table of connected container shapes sorted by closest first.
 function sm.pipeGraph.getInputContainers(requester) end
 
 ---*Server only*  
@@ -9407,7 +9384,7 @@ function sm.pipeGraph.getMatchingPipedContainers(originInteractable) end
 
 ---Returns a table of all connected output containers sorted by closest first. If the asking shape doesn't have input and output directions it returns all connected containers.  
 ---@param requester Shape # The shape connected to the pipe graph who's connected chests you want.
----@return Container[] # containers		A table of connected container shapes sorted by closest first.
+---@return Shape[] # containers		A table of connected container shapes sorted by closest first.
 function sm.pipeGraph.getOutputContainers(requester) end
 
 ---*Client only*  
@@ -9437,12 +9414,12 @@ function sm.pipeGraph.requestLightingOverride(requester, target, uvIndex, glow) 
 ---@class Recipe
 ---@field craftTime number
 ---@field quantity number
----@field itemId Uuid
----@field externalContainers Container[] (containers targeted outside pipe graph for consumption, example: refinery)
----@field selfOutputContainer Container (if the shape has it's own collection container)
----@field ingredientList table
----@field randomCraftList table random weighted crafts (see prospector)
----@field specialCrafting table used to target specific container slots with custom information (see ore crusher).
+---@field itemId string
+---@field externalContainers? Container[] (containers targeted outside pipe graph for consumption, example: refinery)
+---@field selfOutputContainer? Container (if the shape has it's own collection container)
+---@field ingredientList? table
+---@field randomCraftList? table random weighted crafts (see prospector)
+---@field specialCrafting? table used to target specific container slots with custom information (see ore crusher).
 
 ---*Server only*  
 ---Sets an automated task to be performed by the pipe graph when the body is unloaded.  
@@ -11180,24 +11157,11 @@ function sm.visualization.drawLine(startingPoint, endPoint, color) end
 function sm.visualization.getShapePlacementVisualization() end
 
 ---*Client only*  
----Visualizes a block on a shape  
+---Visualizes a block on an object  
 ---@param position Vec3 # The local space position
 ---@param illegal? boolean # Whether the visualization should render as illegal (Defaults to false)
----@param shape Shape # Shape to visualize on
-function sm.visualization.setBlockVisualization(position, illegal, shape) end
-
----*Client only*  
----Visualizes a block on a joint  
----@param position Vec3 # The local space position
----@param illegal? boolean # Whether the visualization should render as illegal (Defaults to false)
----@param joint Joint # joint to visualize on
-function sm.visualization.setBlockVisualization(position, illegal, joint) end
-
----*Client only*  
----Visualizes a block in world space  
----@param position Vec3 # The world space position
----@param illegal? boolean # Whether the visualization should render as illegal (Defaults to false)
-function sm.visualization.setBlockVisualization(position, illegal) end
+---@param object? Lift|Shape|Joint
+function sm.visualization.setBlockVisualization(position, illegal, object) end
 
 ---*Client only*  
 ---Sets an array of bodies to visualize.  
@@ -11516,6 +11480,7 @@ sm.terrainTile.loadFlags = {
 ---@field pathOrJson string
 ---@field pos Vec3
 ---@field rot Quat
+---@field rootPrefabCenterPosition Vec3
 ---@field bodyTransforms? boolean
 ---@field mergeCreation? boolean
 ---@field restricted? boolean
@@ -11531,6 +11496,7 @@ sm.terrainTile.loadFlags = {
 ---@field sortingIndex? number
 ---@field tags string[]
 ---@field changeColor? Color[]
+---@field debugName? string
 
 ---@class TerrainPrefab
 ---@field name string
@@ -11542,8 +11508,9 @@ sm.terrainTile.loadFlags = {
 
 ---@class TerrainNode
 ---@field pos Vec3
----@field rot Quat,
+---@field rot Quat
 ---@field scale Vec3
+---@field rootPrefabCenterPosition Vec3
 ---@field params table
 ---@field tags string[]
 
@@ -11551,6 +11518,8 @@ sm.terrainTile.loadFlags = {
 ---@field uuid Uuid
 ---@field pos Vec3
 ---@field rot Quat
+---@field scale Vec3
+---@field rootPrefabCenterPosition Vec3
 ---@field colors { [string] : Color }
 ---@field tags string[]
 ---@field slopeNormal? Vec3
@@ -11559,6 +11528,7 @@ sm.terrainTile.loadFlags = {
 ---@field pos Vec3
 ---@field rot Quat
 ---@field scale Vec3
+---@field rootPrefabCenterPosition Vec3
 ---@field decalId Uuid
 ---@field color Color
 ---@field layer number
@@ -11568,19 +11538,25 @@ sm.terrainTile.loadFlags = {
 ---@field uuid Uuid
 ---@field pos Vec3
 ---@field rot Quat
+---@field scale Vec3
+---@field rootPrefabCenterPosition Vec3
 ---@field color Color
+---@field colors {[string]: Color}
 ---@field params? table
 ---@field tags string[]
 ---@field slopeNormal? Vec3
+---@field removeIfLevitating boolean
 
 ---@class TerrainKinematic
 ---@field uuid Uuid
 ---@field pos Vec3
 ---@field rot Quat
 ---@field scale Vec3
+---@field rootPrefabCenterPosition Vec3
 ---@field color Color
 ---@field params table
 ---@field tags string[]
+---@field removeIfLevitating boolean
 
 ---Returns a table of all assets in a terrain cell.  
 ---@param tileId Uuid The tile id.
@@ -11872,6 +11848,10 @@ sm.tunnelGenerator = {}
 ---@field mx Vec3
 ---@field type string
 
+---@class Tunnel
+---@field positions Vec3[]
+---@field tunnelType string
+
 ---Returns an array table of pathing results. Each element consisting of a table {{positions={[Vec3],...}} of position arrays.  
 ---@param seed integer # Simplex noise seed.
 ---@param min Vec3 # Grid min x (inclusive).
@@ -11880,7 +11860,7 @@ sm.tunnelGenerator = {}
 ---@param tunnelRequests TunnelRequest[] # An array table of tunnel requests. {{posA=[Vec3], posB=[Vec3](, dirA=[Vec3])(, dirB=[Vec3]), pathingSettings=string},...}
 ---@param blockers TunnelBlocker[] # An array table of tunnel blockers.  {{mi=[Vec3], mx=[Vec3], type=string},...}
 ---@param gridSize number # Size of each grid cell in world units. (Used for debug draw only.)
----@return { positions: Vec3[] }[] # An array table with one tunnel result per request. {{positions={[Vec3],...}}, ...}
+---@return Tunnel[] # An array table with one tunnel result per request. {{positions={[Vec3],...}}, ...}
 function sm.tunnelGenerator.generate(seed, min, max, pathingSettings, tunnelRequests, blockers, gridSize) end
 
 
