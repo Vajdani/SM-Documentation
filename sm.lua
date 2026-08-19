@@ -7545,7 +7545,7 @@ function sm.container.endTransaction() end
 
 ---Returns a table containing item uuid, quantity (and instance id for tools) at first available slot  
 ---@param container Container # The container.
----@return Item[] # Table containg item {uuid  = [Uuid], instance = integer, quantity = integer}.
+---@return Item # Table containg item {uuid  = [Uuid], instance = integer, quantity = integer}.
 function sm.container.getFirstItem(container) end
 
 ---Returns a table containing all item uuids in a container.  
