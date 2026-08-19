@@ -7304,7 +7304,7 @@ sm.melee = {}
 ---@param origin Vec3 # The source position of the attack.
 ---@param directionRange Vec3 # The direction and reach of the attack.
 ---@param source Unit # The unit that is the source of the attack.
----@return RaycastResult # RaycastResult		A table containing [RaycastResult] data.
+---@return RaycastResult[] # RaycastResult		A table containing [RaycastResult] data.
 function sm.melee.getMeleeAttackHits(uuid, origin, directionRange, source) end
 
 ---@deprecated Name is deprecated, use uuid instead
