@@ -6958,16 +6958,6 @@ sm.interactable.actions = {
 ---<h3>Power</h3>  
 ---Out: The controller uses a float ([Interactable.getPower, getPower]) to signal strength output (steering only).  
 ---In: The controller reads a float ([Interactable.getPower, getPower]) from its parent as input for strength.  
----none0  
----logic1  
----power2  
----bearing4  
----seated8  
----piston16  
----gasoline256  
----electricity512  
----water1024  
----ammo2048  
 sm.interactable.connectionType = {
     none = 0,
     logic = 1,
@@ -6978,7 +6968,9 @@ sm.interactable.connectionType = {
     gasoline = 256,
     electricity = 512,
     water = 1024,
-    ammo = 2048
+    ammo = 2048,
+    chemical = 4096,
+    all = 4294967295,
 }
 
 ---Flags to be used with the steering component.  
