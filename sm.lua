@@ -10046,13 +10046,14 @@ sm.compromised = {}
 ---Compromises a [Shape, shape] within the sphere.  
 ---@param position Vec3 # The center position of the sphere.  
 ---@param radius number # The radius of the sphere.  
----@return Shape # The compromised shape.  
+---@return boolean # True if a shape has been compromised.  
 function sm.compromised.compromiseShapeInSphere(position, radius) end
 
 ---*Server only*  
 ---Returns a table of all compromised [Shape, shapes].  
+---@param world World? # The world to check for compromised shapes in. (Optional, defaults to world from script context)  
 ---@return Shape[] # The table of compromised shapes. {[Shape], ..}  
-function sm.compromised.getCompromisedShapes() end
+function sm.compromised.getCompromisedShapes(world) end
 
 ---*Server only*  
 ---Returns whether there are any compromised [Shape, shapes].  
@@ -10082,7 +10083,7 @@ function sm.fire.setFireLimit(limit) end
 ---@param position Vec3 # The position of the sphere.  
 ---@param radius number # The radius of the sphere.  
 ---@param bool boolean? # Undocumented. Optional.  
----@param world World? # The world to ignite fire in.  
+---@param world World? # The world to ignite fire in. (Optional, defaults to world from script context)  
 function sm.fire.igniteSphere(position, radius, bool, world) end
 
 ---*Server only*  
