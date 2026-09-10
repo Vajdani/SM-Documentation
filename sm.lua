@@ -1126,6 +1126,10 @@ function Body:isLiftable() end
 ---@return boolean
 function Body:isOnLift() end
 
+---Check if a body is on a virtual lift  
+---@return boolean
+function Body:isOnVirtualLift() end
+
 ---Check if a body is paintable  
 ---@return boolean
 function Body:isPaintable() end
