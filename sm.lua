@@ -8255,6 +8255,11 @@ function sm.item.isPart(uuid) end
 ---@return boolean # True if the item uuid belongs to a tool.
 function sm.item.isTool(uuid) end
 
+---Return whether the [Shape] uuid belongs to a multi shape.  
+---@param uuid Uuid # The uuid.
+---@return boolean # True if shape is a multi shape.
+function sm.item.isMultiShape(uuid) end
+
 ---*Client only*  
 ---Removes a shape uuid from the tracked items.  
 ---@param uuid Uuid # The uuid of the shape.
