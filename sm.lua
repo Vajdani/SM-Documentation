@@ -13742,3 +13742,36 @@ function GetTagsForCell(cellX, cellY) end
 ---@param y number The y coordinate.
 ---@return string material The name of the material.
 function GetEffectMaterialAt( x, y ) end
+
+---???
+---@return { [1]: integer, [2]: integer }[] cells {{cellX, cellY}, .. }
+function GetOceanCells() end
+
+---???
+---@return { [1]: number, [2]: number, [3]: number, [4]: string }[] cells {{x, y, z, effectName}, ..}
+function GetHLodCells() end
+
+---@class TerrainCullingPortal
+---@field id integer
+---@field maxX number
+---@field maxY number
+---@field maxZ number
+---@field minX number
+---@field minY number
+---@field minZ number
+---@field zoneA number
+---@field zoneB number
+
+---@class TerrainCullingZone
+---@field id integer
+---@field maxX number
+---@field maxY number
+---@field maxZ number
+---@field minX number
+---@field minY number
+---@field minZ number
+
+---???
+---@return TerrainCullingPortal[] portals
+---@return TerrainCullingZone[] zones
+function GetCullingZoneTree() end
