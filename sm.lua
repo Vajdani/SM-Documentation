@@ -12594,6 +12594,7 @@ function ScriptableObjectClass:server_onUnload() end
 ---@field storage Storage (Server side only.) A [Storage] object that can be used to store data for the next time loading this object after being unloaded.
 ---@field data any Data from the "data" json element.
 ---@field params any Parameter set with [Interactable.setParams] when created from a script.
+---@field tags any The tags set on the interactable from the editor.
 local ShapeClass = class()
 
 ---Sets the connection-point highlight color. The connection-point is shown when using the <em>Connect Tool</em> and selecting the interactable. (Defaults to white)  
