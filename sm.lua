@@ -5855,8 +5855,9 @@ function sm.json.fileExists(path) end
 
 ---Opens a json file and parses to Lua table.  
 ---@param path string # The json file path.
+---@param ignoreCache boolean? # Whether to ignore the cache.
 ---@return table # The table.
-function sm.json.open(path) end
+function sm.json.open(path, ignoreCache) end
 
 ---Parses a json string to lua table.  
 ---@param json string # The json string.
@@ -12637,6 +12638,10 @@ ShapeClass.maxParentCount = {}
 ---This is, for instance, used to move the lever on the engine.  
 ---@type integer
 ShapeClass.poseWeightCount = {}
+
+---Sets whether the interactable should remain active when put on a lift. (Defaults to false)  
+---@type boolean
+ShapeClass.keepActiveOnLift = {}
 
 ---Called when the scripted object is created. This occurs when a new object is built, spawned, or loaded from the save file.  
 function ShapeClass:server_onCreate() end
