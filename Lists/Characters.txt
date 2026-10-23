@@ -1,19 +1,76 @@
-DEFAULT:
-	'00000000-0000-0000-0000-000000000000' : MechanicCharacter char_male_tp
+SURVIVAL:
+	'264a563a-e304-430f-a462-9963c77624e9' : Woc
+	'48c03f69-3ec8-454c-8d1a-fa09083363b1' : GlowWorm
+	'4895b33a-ce8f-43d0-8c59-e406d37d8d6b' : BabyWoc
+	'9944611a-7673-4aff-9b87-8072e0d175fc' : BuilderguideGlowWorm
+	'39ec787c-880f-4526-8cf5-904869d107fa' : BuilderguideWoc
+	'c47194cd-056f-4374-abb3-f61aff0a4586' : farmermale1
+	'4838a8ba-2391-48e0-98d1-2ca730d3685e' : farmermale2
+	'28c22887-2a5c-453a-be8a-fe2a1f0e863f' : farmermale3
+	'fb407a95-2070-437f-81a0-3772203f0917' : farmermale4
+	'460447f8-3589-4a91-b9bf-0fd200480e8c' : farmermale5
+	'01c031e6-1edb-4ed5-b434-5b8baa90a38e' : farmerfemale1
+	'98002260-31b7-4d31-979e-01276004b825' : farmerfemale2
+	'408e4852-85f8-4d12-9dcb-95c163235cc2' : farmerfemale3
+	'2646876f-13af-451c-a8cf-0f9f92838cc5' : farmerfemale4
+	'96c84f7e-29cb-4fc4-a56a-b2a5eef4949f' : farmerfemale5
+	'8bb15715-c210-4738-9c8d-ad9fee89ccd6' : farmerbasic
+	'1619be1c-6660-475c-909c-6933bf3fe5d6' : mechanicmale1
+	'5a22c658-58bd-4ed8-b890-2b6317645a59' : mechanicmale2
+	'7fe46b47-77aa-45b5-9476-3a9d6737aa4b' : mechanicmale3
+	'21429dd0-a0d4-4653-8326-9860907232f3' : mechanicmale4
+	'aa9aabdb-1350-4cd3-ba1a-6a7f50432bce' : mechanicmale5
+	'9a56398f-be12-49d9-a8bb-cec9605dc79e' : mechanicfemale1
+	'f4bb694d-ffa2-4202-9a14-7a5555844f9a' : mechanicfemale2
+	'4e44467d-328c-4287-8265-87b9400d189d' : mechanicfemale3
+	'b4452442-2cc4-43b0-abba-19c40283b739' : mechanicfemale4
+	'908ca355-2eca-4964-b03f-344374fbc51c' : mechanicfemale5
+	'3788e9f6-d557-42cb-b3c6-293b7fb0c00d' : Hubert
+	'74bfbebe-0e99-4660-87c2-fed33330db63' : Hubert_Clone
+	'6ac756cf-7910-4f87-836a-7c0a81dd3e59' : Farmer
+	'3ca4b827-a237-4f85-b97c-4298dcc4ad95' : ShipMechanic
+	'55c4c10d-7f56-47c3-a274-32fc2767d298' : Lorenzo
+	'016ea89d-fe57-40d6-8611-f8cafc9dfdec' : Lorenzo_Clone
+	'a16a794a-0159-41a1-9d07-8f051935e9d6' : Scrapper
+	'356916fe-64e9-4dc0-8930-377d8b7d036a' : KoFarmer
+	'aa9a3398-e3dc-4e96-8bff-4963f35b2d58' : SleepyFarmer
+	'fd8e1f0c-364b-4522-8ecd-3c7dc582ea06' : Phe
+	'18e99132-a3d9-4031-9247-d99118e426b4' : Phe_Clone
+	'5d3d7b06-5176-4d0e-b3f8-260c58600edc' : scrapperactor
+	'6f59f58b-be30-4b8f-bb32-727c5a6137bf' : axobotactor
+	'04761b4a-a83e-4736-b565-120bc776edb2' : Tapebot1
+	'9dbbd2fb-7726-4e8f-8eb4-0dab228a561d' : Tapebot2
+	'fcb2e8ce-ca94-45e4-a54b-b5acc156170b' : Tapebot3
+	'68d3b2f3-ed4b-4967-9d22-8ee6f555df63' : Tapebot4
+	'c3d31c47-0c9b-4b07-9bd4-8f022dc4333e' : TapebotRed
+	'8984bdbf-521e-4eed-b3c4-2b5e287eb879' : TotebotGreen
+	'55fd93fa-09ed-4a26-bfa1-4601694d5127' : TotebotLeaf
+	'c8bfb8f3-7efc-49ac-875a-eb85ac0614db' : Haybot
+	'9f4fde94-312f-4417-b13b-84029c5d6b52' : Farmbot
+	'9360d346-3ff2-4925-a068-660cf5dd5267' : TotebotRed
+	'2dea48a4-6a79-11ed-a1eb-0242ac120002' : TotebotYellow
+	'58992f50-ca36-44e1-8c47-4996d89d6a9a' : TotebotBlue
+	'e503cf1b-611c-4692-9431-2ddcfd030375' : Scannerbot
+	'92da8324-3cfe-4529-ac1c-c71facda50a3' : Minerbot
+	'2ef81574-9b6a-4f79-8306-7f80fff2050b' : Trashbot
+	'aaba2a88-67a7-41fe-b704-6fdf7c333494' : TrashballGreen
+	'a2206782-c3be-454d-8c23-8b6e9aa5e9b9' : TrashballPurple
+	'b837888a-0480-4a34-bc34-d72261a14385' : Cablebot
+	'c68914f8-d769-4638-9071-f7dbd1d97351' : TapebotGreen1
+	'f3ded3f4-ddf9-441d-83f1-28b8cf2c7581' : TapebotGreen2
+	'54a06cf0-c035-41a5-b19e-158496d35586' : TapebotGreen3
+	'97efd943-d176-479a-a6f4-46373327ddcd' : TapebotYellow
+	'8828e9d2-650c-11ed-9022-0242ac120002' : Lootbot
+	'a864d8fe-6d9f-4279-9c9b-35419cc2cd87' : BuilderguideTotebot
+	'c3434728-2724-4327-aba9-af168231d0b0' : Trashbot02
+	'531d0a62-6142-4c65-be24-9af58be4a730' : Unknown
+	'0bdd32f3-064f-4cf0-b6bb-da7dd2cdc5e7' : Unknown
+	'4fbefe2d-83c7-4859-982e-1720f04079a3' : Seedbot
+	'de4924b9-89e8-427d-bbe1-10d4da10bb27' : cinematic_drillbot
 
-ANIMALS:
-	'264a563a-e304-430f-a462-9963c77624e9' : WocCharacter char_cow
-	'48c03f69-3ec8-454c-8d1a-fa09083363b1' : GlobCharacter char_glowgorp
+DATA:
+	'00000000-0000-0000-0000-000000000000' : Unknown
 
-ROBOTS:
-	'04761b4a-a83e-4736-b565-120bc776edb2' : TapeBotCharacter char_tapebot
-        '9dbbd2fb-7726-4e8f-8eb4-0dab228a561d' : TapeBotCharacter char_tapebot02
-        'fcb2e8ce-ca94-45e4-a54b-b5acc156170b' : TapeBotCharacter char_tapebot03
-        '68d3b2f3-ed4b-4967-9d22-8ee6f555df63' : TapeBotCharacter char_tapebot04
-        'c3d31c47-0c9b-4b07-9bd4-8f022dc4333e' : TapeBotCharacter char_tapebot_red
-        '8984bdbf-521e-4eed-b3c4-2b5e287eb879' : TotebotCharacter char_totebot
-        'c8bfb8f3-7efc-49ac-875a-eb85ac0614db' : HaybotCharacter char_haybot
-        '9f4fde94-312f-4417-b13b-84029c5d6b52' : FarmbotCharacter char_farmbot
+CHALLENGE:
+	'b6cafd3e-970b-4974-bb9f-ba7184b02797' : Unknown
 
-BUILDERBOT:
-	'b6cafd3e-970b-4974-bb9f-ba7184b02797' : BuilderbotCharacter char_builderbot_tp
