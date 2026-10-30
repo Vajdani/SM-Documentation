@@ -5855,9 +5855,9 @@ function sm.isServerMode() end
 
 ---Calls the function with the given arguments in *protected mode*. This means that any error inside `f` is not propagated.  
 ---See function [pcall](command:extension.lua.doc?["en-us/54/manual.html/pdf-pcall"]).  
----@param name string
----@param func function
----@param ... args
+---@param name string # Name that the function will be called as  
+---@param func function # Function to call in protected mode  
+---@param ... args # Arguments to pass to the function
 ---@return boolean success # Whether the call succeeded
 ---@return any result # The return values of the function
 ---@return any ...
