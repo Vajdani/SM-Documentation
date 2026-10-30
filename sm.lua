@@ -3020,6 +3020,10 @@ function World:getDominantMaterialInSphere(position, radius) end
 ---@return integer # The world's id.
 function World:getId() end
 
+---Returns the script class of a world.  
+---@return string # The world's script class.
+function World:getScriptClass() end
+
 ---@param worldPosition Vec3 # The position of the voxel chunk in the world.
 ---@return integer # The material index value. (returns nil if no voxel was at point)
 ---@return integer # The density value. (returns nil if no voxel was at point)
@@ -5656,6 +5660,11 @@ function GuiInterface:trackQuest(name, title, mainQuest, questTasks, icon) end
 ---@param questName string # The name of quest
 function GuiInterface:untrackQuest(questName) end
 
+---*Client only*  
+---Sets whether dropping items is allowed in this gui  
+---@param allow boolean # Whether dropping items is allowed
+function GuiInterface:setAllowDrop(allow) end
+
 
 ---@class Garage
 ---A userdata object representing an <strong>Garage</strong> in the game.  
@@ -5844,6 +5853,15 @@ function sm.exists(object) end
 ---@return boolean
 function sm.isServerMode() end
 
+---Calls the function with the given arguments in *protected mode*. This means that any error inside `f` is not propagated.  
+---See function [pcall](command:extension.lua.doc?["en-us/54/manual.html/pdf-pcall"]).  
+---@param name string
+---@param func function
+---@param ... args
+---@return boolean success # Whether the call succeeded
+---@return any result # The return values of the function
+---@return any ...
+function sm.pcall(name, func, ...) end
 
 ---Parses and writes json files from and to lua values.  
 sm.json = {}
@@ -7966,6 +7984,10 @@ function sm.world.createWorld(filename, classname, terrainParams, seed) end
 ---Get the world that the scripted object is in.  
 ---@return World # The world
 function sm.world.getCurrentWorld() end
+
+---Get a list of all worlds.  
+---@return World[] # A list of all worlds.  
+function sm.world.getWorlds() end
 
 ---@class DirtySphere
 ---@field center Vec3
@@ -11099,6 +11121,12 @@ function sm.gui.startFadeToBlackWaitForWorld(duration, timeout) end
 ---@param ticks integer # Game ticks
 ---@return string # time		Human time formatted string
 function sm.gui.ticksToTimeString(ticks) end
+
+---*Client only*  
+---Converts distance to a string representation.  
+---@param distance integer # Distance
+---@return string # Distance formatted string
+function sm.gui.formatDistance(distance) end
 
 ---*Client only*  
 ---Translates all localization tags in a text using the current language.  
