@@ -1182,6 +1182,10 @@ function Body:setPaintable(value) end
 ---@param value boolean # Whether the body is interactable.
 function Body:setUsable(value) end
 
+---*Server only*  
+---Makes the creation that the body is part of dynamic  
+function Body:makeCreationDynamic() end
+
 ---Transforms a point from local space to world space.  
 ---@param point Vec3 # The point in local space.
 ---@return Vec3 # The point in world space.
